@@ -1,13 +1,14 @@
 import express from "express";
 import cors from 'cors';
 import { router as loginRouter } from "./controllers/auth-controller/loginController.js";
+import {router as registration } from "./controllers/auth-controller/registrationController.js"; 
 
 const server = express();
 server.use(cors());
 server.use(express.json());
 
 server.use("/login", loginRouter)
-
+server.use('/register',registration)
 
 
 server.listen(4000, () => {
