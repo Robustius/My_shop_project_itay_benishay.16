@@ -1,10 +1,11 @@
-<h1 [hidden]="token" >Welcome Please Login</h1>
-<h1 [hidden]="!token" >Enjoy the shop!</h1>
+<h1 *ngIf="!token">Welcome Please Login</h1>
+<h1  *ngIf="token">Enjoy the shop!</h1>
 <h3></h3>
-<button [routerLink]="token?['/home'] : []" [disabled]="!token" >Start Shopping /<br>resume existing one..</button>
+<button *ngIf="isAdmin" [routerLink]='["/adminview"]'>Welcome Admin<br> start </button>
+<button *ngIf="!isAdmin" [routerLink]="['/home']" [disabled]="!token">Start Shopping /<br>resume existing
+    one..</button>
 
 <p>{{errors?.error|json}}</p>
 <input type="email" [(ngModel)]="email" placeholder="User Name" required><br><br>
 <input type="password" [(ngModel)]="password" placeholder="password" required>
-<button (click)=onLogin()>Login</button>&nbsp;  <a routerLink='/register'>Sign Up</a>
- 
+<button (click)=onLogin()>Login</button>&nbsp; <a routerLink='/register'>Sign Up</a>

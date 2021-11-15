@@ -41,7 +41,7 @@
 
   <p>
     email:
-    <input type="text" [(ngModel)]="customer.email" name="email" required pattern="[^ @]*@[^ @]*" minlength="8"
+    <input type="text" [(ngModel)]="customer.email" name="email" required  pattern="[^ @]*@[^ @]*" minlength="8"
       #email="ngModel" />
     <span *ngIf="email.errors && (email.dirty || email.touched)">
       <span *ngIf="email.errors.required">Missing email</span>

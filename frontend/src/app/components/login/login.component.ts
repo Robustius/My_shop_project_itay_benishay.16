@@ -13,15 +13,23 @@ import { Location } from '@angular/common';
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
-  token: string
+  token: {token:'',role:''}
   getToken: Promise<any>;
   errors: any = 'please Log-in..'
   currentUser: any = localStorage.getItem('currentUser');
   constructor(private authService: AuthService, private location: Location, private router: Router) { }
-
-
+  isAdmin: boolean | string = false
+  isloggedin: boolean | string
   ngOnInit(): void {
-     this.token = this.authService.getToken();
+    this.isloggedin = false
+    this.token = this.authService.getToken();
+    console.log(this.token, `what`); 
+    if (this.token) {
+      this.isloggedin = this.token.role
+      this.isloggedin == "admin" ? this.isAdmin = true : this.isAdmin = false;
+      return
+    }
+   
 
 
 
@@ -29,28 +37,29 @@ export class LoginComponent implements OnInit {
   }
 
   async onLogin() {
-    this.errors = "please Log-in..";
-
     this.getToken = this.authService.login({
       email: this.email,
       password: this.password
     }).then(value => {
-      this.token = value;
-      if (this.token === "") {
+      this.token = value
+      console.log(this.token);
+      
+      if (!this.token) {
         return this.errors = value
+      }
+      localStorage.setItem('currentUser', JSON.stringify(this.token));
+      this.isloggedin = this.token?.role
+      console.log(this.token);
 
-      } else
+      this.isloggedin === "admin" ? this.isAdmin = true : this.isAdmin = false;
 
-        localStorage.setItem('currentUser', JSON.stringify(this.token));
-        
       this.email = '';
       this.password = '';
-      
     }).catch((error) => {
 
       this.errors = error
 
-      console.log(this.errors);
+
 
     });
     // this.loginSub = this.authService.login({

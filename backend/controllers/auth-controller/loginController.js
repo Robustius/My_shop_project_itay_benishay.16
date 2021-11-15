@@ -9,16 +9,15 @@ export const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const user = await isRegistered(req.body);
-        console.log(req.headers.authorization);
+        
         if (!user || user.length < 1) return res.status(403).json('incorrect email or password');
        
         delete user.password;
-        delete user.id;
-        
+          
+          
         if (user) {
             const token = jwt.sign({ user: user }, 'aosdkasokdaoskdokadsok', { expiresIn: "100 minutes" });
-            
-            return res.status(200).send(JSON.stringify(token));
+            return res.status(200).send({ token:token,role:user.role});
 
         } else {
             return res.status(403).json('incorrect email or password')

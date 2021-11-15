@@ -4,7 +4,7 @@ import { register, verify } from '../../buisness-logic/auth-logic.js'
 export const router = express.Router();
 
 
-router.use('/verify', async (req, res) => {
+router.get('/verify', async (req, res) => {
     try {
 
         const idTaken = await verify(req.body)

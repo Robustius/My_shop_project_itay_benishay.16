@@ -13,16 +13,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public getToken(): string {
-   
-    const currentUser=localStorage.getItem('currentUser');
+  public getToken(): any {
+
+    const currentUser = localStorage.getItem('currentUser');
     console.log(currentUser);
-    
-    if(!currentUser){
-    return undefined;
-  }
-    else{
-return currentUser;
+
+    if (!currentUser) {
+      return undefined;
+    }
+    else {
+      return JSON.parse(currentUser);
     }
   }
 
@@ -30,8 +30,8 @@ return currentUser;
     return this.http.post(`${this.BASE_URL}`, creds).toPromise();
 
   }
-  FirstVerify(customer: Customer): Promise<any>{
-    return this.http.post(`http://localhost:4000/register/verify`,customer).toPromise();
+  FirstVerify(customer: Customer): Promise<any> {
+    return this.http.post(`http://localhost:4000/register/verify`, customer).toPromise();
   }
 
   register(customer: Customer): Promise<any> {

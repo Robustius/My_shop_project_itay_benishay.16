@@ -14,6 +14,9 @@ import { BodyComponent } from './Layout/body/body.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MemberForm } from './components/register/Test.component';
 import { MycartComponent } from './components/mycart/mycart.component';
+import { AddProductComponent } from './components/register/admin/add-product/add-product.component';
+import { AdminViewComponent } from './components/admin-view/admin-view.component';
+import { ProductsComponent } from './components/products/products.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { MycartComponent } from './components/mycart/mycart.component';
     LogoComponent,
     BodyComponent,
     MemberForm,
-    MycartComponent
+    MycartComponent,
+    AddProductComponent,
+    AdminViewComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

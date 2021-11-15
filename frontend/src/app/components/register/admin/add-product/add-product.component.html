@@ -1,0 +1,48 @@
+<p>add-product works!</p>
+<button (click)="addProduct()">ADD</button>
+<form *ngIf="visible" (ngSubmit)="onAdd()" #f="ngForm">
+    <h2>New Product</h2>
+    <p>
+        Name:
+        <input [(ngModel)]="newProduct.productName" name="productName" required minlength="2" #productName="ngModel" minlength="3" />
+        <span *ngIf="productName.errors && (productName.dirty || productName.touched)">
+            <span *ngIf="productName.errors.required">Missing name</span>
+            <span *ngIf="productName.errors.minlength">Too short</span>
+        </span>
+    </p>
+    <p>
+        price:
+        <input type="number" [(ngModel)]="newProduct.price" name="price" required min="0.9" #price="ngModel" />
+        <span *ngIf="price.errors && (price.dirty || price.touched)">
+            <span *ngIf="price.errors.required">Missing price</span>
+            <span *ngIf="price.errors.min">Missing price</span>
+        </span>
+    </p>
+   
+    <p>
+        category:
+        <select [(ngModel)]="newProduct.categoryName" name="categoryName" required #categoryName="ngModel">
+            <option value="">Select a language</option>
+            <option *ngFor="let categoryName of categories" [value]="categoryName">{{categoryName|json}}</option>
+        </select>
+        <span *ngIf="categoryName.errors && (categoryName.dirty || categoryName.touched)">
+            <span *ngIf="categoryName.errors.required">Missing language</span>
+        </span>
+    </p>
+    <p>
+        Name:
+        <input [(ngModel)]="newProduct.imageName" name="imageName" required #imageName="ngModel" minlength="3" />
+        <span *ngIf="imageName.errors && (imageName.dirty || imageName.touched)">
+            <span *ngIf="imageName.errors.required">Missing name</span>
+            <span *ngIf="imageName.errors.minlength">Too short</span>
+        </span>
+    </p>
+    <p>
+        image:
+        <input #imageControl type="file" accept="image/*" (change)="saveImage($event)" (blur)="imageBlur()"  />
+        <span *ngIf="imageVisited && !newProduct.imageName">Missing image</span>
+    </p>
+    <p>
+        <input type="submit" value="Save" [disabled]="f.invalid" />
+    </p>
+</form>
