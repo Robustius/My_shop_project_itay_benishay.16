@@ -2,36 +2,35 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-
 import { LoginComponent } from './components/login/login.component';
-
-import { HomeComponent } from './components/Home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AndHttpInterceptor } from './services/interceptors';
-import { LogoComponent } from './Layout/logo/logo.component';
-import { BodyComponent } from './Layout/body/body.component';
 import { RegisterComponent } from './components/register/register.component';
-import { MemberForm } from './components/register/Test.component';
-import { MycartComponent } from './components/mycart/mycart.component';
-import { AddProductComponent } from './components/register/admin/add-product/add-product.component';
-import { AdminViewComponent } from './components/admin-view/admin-view.component';
-import { ProductsComponent } from './components/products/products.component';
-
+import { MycartComponent } from './components/shopping-page/mycart/mycart.component';
+import { AdminViewComponent } from './components/admin/admin-view/admin-view.component'
+import { ProductsComponent } from './components/shopping-page/products/products.component';
+import { AddProductComponent } from './components/admin/add-product/add-product.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CartItemComponent } from './components/shopping-page/mycart/cart-item/cart-item.component';
+import { ProductsNav } from './components/products-nav/products-nav';
+import { ProductItemComponent } from './components/shopping-page/product-item/product-item.component';
+import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component'
+  
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
     AppComponent,
-    LogoComponent,
-    BodyComponent,
-    MemberForm,
     MycartComponent,
     AddProductComponent,
     AdminViewComponent,
-    ProductsComponent
+    ProductsComponent,
+    CartItemComponent,
+    ProductsNav,
+    ProductItemComponent,
+    ShoppingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +38,7 @@ import { ProductsComponent } from './components/products/products.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
 
   ],
   providers: [{

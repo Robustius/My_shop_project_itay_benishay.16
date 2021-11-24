@@ -23,27 +23,11 @@ export class RegisterComponent implements OnInit {
   customer: Customer = new Customer(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)
   errors: any;
   cities: any = Object.keys(Cities).slice(10)
-
-
-
-
-
-
-  constructor(private authService: AuthService, private location: Location, private router: Router) { }
-
-
-
-
+  constructor(private authService: AuthService, private location: Location) { }
   ngOnInit() {
-
-
-
-
   }
   public async firstStep() {
     if (this.visible) {
-
-
       this.open.emit(this.authService.FirstVerify(this.customer)
         .then
         (value => {
@@ -55,7 +39,9 @@ export class RegisterComponent implements OnInit {
         })
         .catch
         (errors => {
-          if (errors.status == '403') {
+          console.log(errors);
+
+          if (errors.status === 406) {
             this.errors = `email or id are already in use!`
           }
         }));
@@ -72,7 +58,7 @@ export class RegisterComponent implements OnInit {
           ({ email: this.customer.email, password: this.customer.password })
           .then(token => {
             localStorage.setItem('currentUser', JSON.stringify(token))
-            this.errors =''
+            this.errors = ''
             this.customer = new Customer(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
             return this.location.back();
           }).catch(error => error)

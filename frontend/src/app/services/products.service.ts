@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from './../models/Product.model'
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ BASE_URL=`http://localhost:4000/admin`
   //     return this.http.get<Product[]>(`${this.BASE_URL}`);
   // }
 getAllProducts():Observable<Product[]>{
-  return this.http.get<Product[]>(`http://localhost:4000/products`);
+  return this.http.get<Product[]>(`http://localhost:4000/products`).pipe(take(1))
 }
 
 

@@ -9,14 +9,15 @@ export enum categoryName {
 }
 export class Product {
     constructor(
+        public id:number,
         public productName: string,
         public categoryName: number,
         public price: number,
         public imageName: string,
         public image: FileList
 
-    ) { }
-    static convertToFormData(product: Product) {
+    ) { } 
+    static convertToFormData(product: Product) {        
         const fd = new FormData();
 
         fd.append("productName", product.productName);
@@ -24,12 +25,9 @@ export class Product {
         fd.append("price", product.price.toString());
         fd.append("imageName", product.imageName);
         if (product.image) {
-            fd.append("image", product.image.item(0));
-            console.log(`im here`);
-            
+            fd.append("image", product.image.item(0));           
             return fd;
         } else {
-            console.log(`im there`);
             return fd;
         }
     }

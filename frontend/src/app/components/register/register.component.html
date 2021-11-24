@@ -1,6 +1,7 @@
-<p>register works!</p>
+
+<div class="container">
 <form *ngIf="visible" (ngSubmit)="firstStep()" #f="ngForm">
-  <h2>New Product</h2>
+  <h2>First step</h2>
   <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" -->
 
   <p>Password:</p>
@@ -11,9 +12,7 @@
     <div *ngIf="password.errors.pattern"> Must contain at least one number and one uppercase and lowercase letter, and
       at least 8 or more characters.</div>
   </div>
-
   <br>
-
   <p>confirm password</p>
   <input type="password" [(ngModel)]="customer.confirmpassword" name="confirmpassword" placeholder="Confirm Password"
     class="form-control" required pattern="{{ password.value }}" #confirmpassword="ngModel" />
@@ -25,8 +24,8 @@
 
   <p>
   <P>id:</P>
-  <input type="text" [(ngModel)]="customer.id" name="id" #id="ngModel" required pattern="^[0-9]*$" minlength="9"
-    maxlength="10" />
+  <input type="text" class="form-control" [(ngModel)]="customer.id" name="id" #id="ngModel" required pattern="^[0-9]*$"
+    minlength="9" maxlength="10" />
 
   <span *ngIf="id.errors && (id.dirty || id.touched)">
     <span *ngIf="id.errors.required">Missing id</span>
@@ -35,14 +34,10 @@
     <span *ngIf="id.errors.minlength">minimum 9 characters on id</span>
   </span>
 
-
-
-
-
   <p>
     email:
-    <input type="text" [(ngModel)]="customer.email" name="email" required  pattern="[^ @]*@[^ @]*" minlength="8"
-      #email="ngModel" />
+    <input type="text" class="form-control" [(ngModel)]="customer.email" name="email" required pattern="[^ @]*@[^ @]*"
+      minlength="8" #email="ngModel" />
     <span *ngIf="email.errors && (email.dirty || email.touched)">
       <span *ngIf="email.errors.required">Missing email</span>
       <span *ngIf="email.errors.pattern">must contain @</span>
@@ -56,12 +51,12 @@
 </form>
 
 <form *ngIf="!visible" (ngSubmit)="onRegister()" #f2="ngForm">
-  <p>its working!!!!!</p>
 
+<h2>last step..</h2>
   <p>
     Name:
-    <input [(ngModel)]="customer.firstName" name="firstName" required #CustomerBox="ngModel" minlength="2"
-      maxlength="50" />
+    <input class="form-control" [(ngModel)]="customer.firstName" name="firstName" required #CustomerBox="ngModel"
+      minlength="2" maxlength="50" />
     <span *ngIf="CustomerBox.errors && (CustomerBox.dirty || CustomerBox.touched)">
       <span *ngIf="CustomerBox.errors.required">Missing name</span>
       <span *ngIf="CustomerBox.errors.minlength">Too short</span>
@@ -69,7 +64,8 @@
   </p>
   <p>
     Last Name:
-    <input [(ngModel)]="customer.lastName" name="lastName" required #lastName="ngModel" minlength="2" maxlength="50" />
+    <input class="form-control" [(ngModel)]="customer.lastName" name="lastName" required #lastName="ngModel"
+      minlength="2" maxlength="50" />
     <span *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
       <span *ngIf="lastName.errors.required">Missing lastname</span>
       <span *ngIf="lastName.errors.minlength">Too short</span>
@@ -78,7 +74,7 @@
   </p>
   <p>
     city:
-    <select [(ngModel)]="customer.city" name="city" required #city="ngModel">
+    <select class="form-control" [(ngModel)]="customer.city" name="city" required #city="ngModel">
       <option value="">Select a language</option>
       <option *ngFor="let city of cities" [value]="city">{{city|json}}</option>
     </select>
@@ -88,13 +84,14 @@
   </p>
   <p>
     street:
-    <input [(ngModel)]="customer.street" name="street" #street="ngModel" required minlength="3" />
+    <input class="form-control" [(ngModel)]="customer.street" name="street" #street="ngModel" required minlength="3" />
     <span *ngIf="street.errors && (city.dirty||city.touched)">
       <span *ngIf="street && !street">Missing street</span>
       <span *ngIf="street.errors.minlength">too short!</span>
     </span>
   </p>
   <p>
-    <input type="submit" value="register" [disabled]="f2.invalid" routerLink='/register' />
+    <input class="form-control" type="submit" value="register" [disabled]="f2.invalid" routerLink='/register' />
   </p>
 </form>
+</div>

@@ -1,0 +1,14 @@
+<p>shopping-page works!</p>
+
+    <div class="row">
+        <app-products-nav></app-products-nav>
+    </div>
+    <div class="row ">
+        <div class="col app-cart">
+            <app-mycart [cartDetails]='cart'></app-mycart>
+        </div>
+        <div class="col">
+            <app-products></app-products>
+        </div>
+    </div>
+<h1 *ngIf="errors">{{errors}}</h1>

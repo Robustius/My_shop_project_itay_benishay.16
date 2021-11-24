@@ -31,9 +31,9 @@ export class AuthService {
 
   }
   FirstVerify(customer: Customer): Promise<any> {
+    console.log(customer,'here');
     return this.http.post(`http://localhost:4000/register/verify`, customer).toPromise();
   }
-
   register(customer: Customer): Promise<any> {
     return this.http.post(`http://localhost:4000/register`, customer).toPromise();
   }

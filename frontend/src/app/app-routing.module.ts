@@ -1,20 +1,18 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { AdminViewComponent } from './components/admin-view/admin-view.component';
-import { HomeComponent } from './components/Home/home.component';
-
+import { AdminViewComponent } from './components/admin/admin-view/admin-view.component';
 import { LoginComponent } from './components/login/login.component';
-import { MycartComponent } from './components/mycart/mycart.component';
-import { ProductsComponent } from './components/products/products.component';
-import { AddProductComponent } from './components/register/admin/add-product/add-product.component';
+import { MycartComponent } from './components/shopping-page/mycart/mycart.component';
+import { ProductsComponent } from './components/shopping-page/products/products.component';
+import { AddProductComponent } from '../app/components/admin/add-product/add-product.component';
 import { RegisterComponent } from './components/register/register.component';
-import { MemberForm } from './components/register/Test.component';
+import { AppComponent } from './app.component';
+import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 
 const routes: Routes = [
 
   {
-    path: "login",
+    path: "login", 
     component: LoginComponent
   },
   {
@@ -33,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent,
+    component: ShoppingPageComponent,
     children: [
       {
         path: 'cart',
@@ -49,7 +47,8 @@ const routes: Routes = [
 
   {
     path: "",
-    component: LoginComponent
+    redirectTo: "/login",
+    pathMatch: 'full'
   }
 
 ];

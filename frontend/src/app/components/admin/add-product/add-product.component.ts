@@ -13,11 +13,11 @@ export class AddProductComponent implements OnInit {
 
   @ViewChild('f') form: any;
   @ViewChild('imageControl') imageControl: ElementRef;
-  newProduct: Product = new Product(undefined, undefined, undefined, undefined, undefined);
+  newProduct: Product = new Product(undefined, undefined, undefined, undefined, undefined,undefined);
   errors: any;
   categories: any = Object.keys(categoryName).slice(4)
 
-  imageVisited: boolean = false;
+  imageVisited: boolean = false; 
   visible: boolean = false;
   constructor(private productService: ProductsService) { }
 
@@ -44,7 +44,7 @@ this.visible=false
           console.log("Added");
           console.log(value);
           this.errors = undefined;
-          this.newProduct = new Product(undefined, undefined, undefined, undefined,undefined);
+          this.newProduct = new Product(undefined, undefined, undefined, undefined,undefined,undefined);
           this.imageVisited = false;
           this.imageControl.nativeElement.value = "";
          return this.visible=false

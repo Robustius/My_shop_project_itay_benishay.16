@@ -39,7 +39,14 @@
     </p>
     <p>
         image:
-        <input #imageControl type="file" accept="image/*" (change)="saveImage($event)" (blur)="imageBlur()"  />
+        <input
+         #imageControl 
+         type="file" 
+         accept="image/*" 
+         (change)="saveImage($event)" 
+         (blur)="imageBlur()" 
+          required />
+        
         <span *ngIf="imageVisited && !newProduct.imageName">Missing image</span>
     </p>
     <p>
