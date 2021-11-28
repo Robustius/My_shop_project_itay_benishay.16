@@ -18,7 +18,7 @@ export class AuthService {
     const currentUser = localStorage.getItem('currentUser');
     console.log(currentUser);
 
-    if (!currentUser) {
+    if (currentUser===null) {
       return undefined;
     }
     else {

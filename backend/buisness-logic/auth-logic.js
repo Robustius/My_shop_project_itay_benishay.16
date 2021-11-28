@@ -16,7 +16,6 @@ export async function verify(halfUser) {
                 // select userName from customers where userName='${halfUser.email}'`
                 // );
 
-console.log(idTaken);
                 if (idTaken.length >= 1) {
                        
                         return idTaken

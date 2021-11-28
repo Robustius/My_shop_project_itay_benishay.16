@@ -4,8 +4,9 @@ import { verifyToken } from './auth-controller/loginController.js';
 import { verifyLoggedIn } from '../middleware.js';
 export const router = express.Router();
 
-router.post('/cart', async (req, res) => {
+router.post('/cart',verifyLoggedIn, async (req, res) => {
     try {
+        console.log('HEADERS',req.headers.authorization,'HEADERS');
         const token = req.body
         const userDetails = verifyToken(token.token);
         const cart = await getCartById(userDetails);

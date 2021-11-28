@@ -36,12 +36,16 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     }).then(value => {
-      this.token = value
+      console.log(value);
+      
+      this.token = value.token
       if (!this.token) {
         return this.errors = value
       }
-      localStorage.setItem('currentUser', JSON.stringify(this.token));
-      this.isloggedin = this.token?.role
+      console.log(this.token);
+      
+      localStorage.setItem('currentUser', JSON.stringify(value));
+      this.isloggedin = value.role
       this.isloggedin === "admin" ? this.isAdmin = true : this.isAdmin = false;
       this.email = '';
       this.password = '';

@@ -22,27 +22,33 @@ export async function addProduct(product, image) {
     // const __dirname = new URL(import.meta.url).pathname
     try {
         if (image == null) {
-
             throw console.log(image);
         }
         let imgName = `${product.imageName}.png`;
         const absolutePath = path.join('D:/projects/My_shop_project_itay_benishay.16/backend/images', imgName);
-
         await image.mv(absolutePath)  // mv = move 
-
     } catch (error) {
         console.log(error);
     }
-
     const n = uuidv4();
-
     const categoryId = await executeQueryAsync(
         `select categoryId from category where categoryName='${product.categoryName}'`);
-
-
-
     const result = await executeQueryAsync(
         `insert into products (id,productName,price,imgId,categoryId) values (null,?,?,?,?)`, [product.productName, product.price, product.imageName, categoryId[0].categoryId]);
-
     return result
+}
+export async function getProductsById(category) {
+    // const id = await getProductId(category);
+    try {
+        const result = await executeQueryAsync(`
+        select * from products where categoryId=?`, [category])
+        return result
+    } catch (error) {
+        console.log(error); 
+    }
+}
+async function getProductId(category) {
+    const categoryId = await executeQueryAsync(
+        `select categoryId from category where categoryName='${category}'`);
+    return categoryId
 }

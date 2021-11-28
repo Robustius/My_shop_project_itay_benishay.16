@@ -13,7 +13,7 @@ import { ProductsComponent } from './components/shopping-page/products/products.
 import { AddProductComponent } from './components/admin/add-product/add-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartItemComponent } from './components/shopping-page/mycart/cart-item/cart-item.component';
-import { ProductsNav } from './components/products-nav/products-nav';
+import { ProductsNav } from './components/shopping-page/products-nav/products-nav';
 import { ProductItemComponent } from './components/shopping-page/product-item/product-item.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component'
   

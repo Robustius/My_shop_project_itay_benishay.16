@@ -8,48 +8,31 @@ import { AddProductComponent } from '../app/components/admin/add-product/add-pro
 import { RegisterComponent } from './components/register/register.component';
 import { AppComponent } from './app.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
+import { ProductsNav } from './components/shopping-page/products-nav/products-nav';
 
 const routes: Routes = [
 
+  { path: "login", component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
-    path: "login", 
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'adminview',
-    component: AdminViewComponent,
+    path: 'adminview', component: AdminViewComponent,
     children: [
-      {
-        path: 'add',
-        component: AddProductComponent
-      }
+      { path: 'add', component: AddProductComponent }
     ]
   },
   {
-    path: 'home',
-    component: ShoppingPageComponent,
+    path: 'home', component: ShoppingPageComponent,
     children: [
+      { path: 'cart', component: MycartComponent },
       {
-        path: 'cart',
-        component: MycartComponent
-
+        path: 'products', component: ProductsComponent
       },
       {
-        path: 'app-products',
-        component: ProductsComponent
-
+        path: 'products/categoryId', component: ProductsNav
       }]
   },
-
-  {
-    path: "",
-    redirectTo: "/login",
-    pathMatch: 'full'
-  }
+  { path: 'search/:searchTerm', component: ShoppingPageComponent },
+  { path: "", redirectTo: "/login", pathMatch: 'full' },
 
 ];
 

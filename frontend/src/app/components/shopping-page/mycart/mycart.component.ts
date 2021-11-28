@@ -18,7 +18,8 @@ export class MycartComponent implements OnInit {
     console.log(this.cartDetails, 'THIS IS THE CART DETAILS');
     this.msg.getMsg().subscribe((product: Product) => {
       this.addProductToCart(product)
-    })
+    },error=>console.log(error)
+    )
   }
   addProductToCart(product: Product) {
     if (this.cartProducts.length === 0) {

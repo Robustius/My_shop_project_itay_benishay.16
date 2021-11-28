@@ -14,13 +14,19 @@ BASE_URL=`http://localhost:4000/admin`
   //     return this.http.get<Product[]>(`${this.BASE_URL}`);
   // }
 getAllProducts():Observable<Product[]>{
-  return this.http.get<Product[]>(`http://localhost:4000/products`).pipe(take(1))
+  return this.http.get<Product[]>(`http://localhost:4000/products`).pipe(take(1));
+}
+getProductsByCategory(categoryId:number):Observable<Product[]>{
+  console.log(categoryId);
+  
+  return this.http.get<Product[]>(`http://localhost:4000/products/${categoryId}`).pipe(take(1));
 }
 
 
   getProductById(id: number): Observable<Product> {
       return this.http.get<Product>(`${this.BASE_URL}/${id}`);
   }
+
 
   add(newProduct: FormData): Promise<any> {
     console.log(newProduct);

@@ -11,15 +11,16 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AndHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    const hardcodedTokens = localStorage.getItem('currentUser')
-    // Add Auth Token
+    const login = '/login'
+    if (req.url.search(login) === -1){
+    const hardcodedTokens= JSON.parse(localStorage.currentUser)?.token
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${hardcodedTokens ? hardcodedTokens : null}`
         }
       });
-    
+}
+
     return next.handle(req)
       .pipe(
         // Retry on failure
