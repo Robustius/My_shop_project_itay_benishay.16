@@ -1,14 +1,28 @@
-<p>shopping-page works!</p>
-
-    <div class="row">
+<mat-drawer-container > 
+    <mat-drawer mode="side" [opened]="cartBarOpen">
+        <app-mycart [cartDetails]='cart' [cartProducts]="cartItems"></app-mycart> 
+    </mat-drawer>
+    <!-- <mat-drawer-content > -->
+     <app-header (toggleUserCart)='cartToggler()' [cartBarOpen]='cartBarOpen'></app-header>
         <app-products-nav></app-products-nav>
-    </div>
-    <div class="row ">
+        <h1 *ngIf="errors">{{errors}}</h1>
+    <!-- </mat-drawer-content> -->
+</mat-drawer-container>
+
+
+
+
+<!-- <p>shopping-page works!</p>
+    <div class="row">
         <div class="col app-cart">
+            <mat-drawer-container>
+                <mat-drawer mode="side" open="true">
+                   
+                </mat-drawer>
+                <mat-drawer-content></mat-drawer-content>
+            </mat-drawer-container>
             <app-mycart [cartDetails]='cart'></app-mycart>
         </div>
-        <div class="col">
-            <app-products></app-products>
-        </div>
+        <div class="col"><app-products-nav></app-products-nav></div>
     </div>
-<h1 *ngIf="errors">{{errors}}</h1>
+<h1 *ngIf="errors">{{errors}}</h1> -->

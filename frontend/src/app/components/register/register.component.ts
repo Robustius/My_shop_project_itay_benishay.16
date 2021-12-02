@@ -30,17 +30,14 @@ export class RegisterComponent implements OnInit {
     if (this.visible) {
       this.open.emit(this.authService.FirstVerify(this.customer)
         .then
-        (value => {
-          console.log(value);
+        (value => {        
           if (value) {
-            console.log(value);
             this.visible = false
           }
         })
         .catch
         (errors => {
           console.log(errors);
-
           if (errors.status === 406) {
             this.errors = `email or id are already in use!`
           }
@@ -53,7 +50,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.customer)
       .then
       (value => {
-        console.log(value, `success`);
+        
         this.authService.login
           ({ email: this.customer.email, password: this.customer.password })
           .then(token => {

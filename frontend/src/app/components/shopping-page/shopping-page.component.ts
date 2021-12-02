@@ -1,28 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { CartModel } from 'src/app/models/Cart.model';
+import { CartProducts } from 'src/app/models/CartProducts.model';
+import { MessengerService } from 'src/app/services/messenger.service';
 @Component({
   selector: 'app-shopping-page',
   templateUrl: './shopping-page.component.html',
   styleUrls: ['./shopping-page.component.css']
 })
 export class ShoppingPageComponent implements OnInit {
-  cart: string[] = []
+  cartBarOpen = true
+  
+  cartItems: CartProducts[]=[]
   errors: any
-  constructor(private custServ: CustomerService, private auth: AuthService, private location: Location) { }
+  cart: CartModel
+  constructor(private custServ: CustomerService, private auth: AuthService, private msg: MessengerService) { }
 
   ngOnInit(): void {
-    const userToken = this.auth.getToken()
-    this.custServ.getCart(userToken).then(value => {
-      this.cart = value[0]
-      console.log(this.cart, "NU ANI POOOOOOOOOO");
-
-    }).catch(error => {
-      this.errors = error.error
-      console.log(error);
-
-    })
+    this.getCart();
   }
+
+  async getCart() {
+    this.custServ.getCart().then(value => {
+      this.cart = value[0]
+      this.custServ.getCartItems(this.cart.id).then(value => {
+        this.cartItems = value
+      }).catch(error => console.log(error)
+      );
+  }).catch(error => {
+    this.errors = error.error
+      console.log(error);
+    });
+  }
+ 
+cartToggler() {
+  this.cartBarOpen = !this.cartBarOpen
+}
+
+
 }
 

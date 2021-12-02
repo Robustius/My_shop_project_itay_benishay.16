@@ -31,7 +31,7 @@ const routes: Routes = [
         path: 'products/categoryId', component: ProductsNav
       }]
   },
-  { path: 'search/:searchTerm', component: ShoppingPageComponent },
+  { path: 'search/:searchTerm', component: ProductsComponent },
   { path: "", redirectTo: "/login", pathMatch: 'full' },
 
 ];

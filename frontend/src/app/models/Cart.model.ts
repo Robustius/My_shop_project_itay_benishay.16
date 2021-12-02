@@ -1,5 +1,8 @@
 export  class CartModel {
 constructor(
-    cartItem:any
+  public  id:number,
+   public customerId:number,
+   public startDate:Date
+
 ){}
 }

@@ -1,0 +1,21 @@
+mat-drawer{
+    width:260px
+    /* width: 15%; */
+}
+
+
+/* :host{
+    display: flex;
+    flex-direction: column;
+
+}
+mat-toolbar{
+    position:sticky;
+    top: 0;
+    
+}
+button{
+    border: 0;
+    outline: none;
+
+} */

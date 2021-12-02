@@ -10,18 +10,15 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductsNav implements OnInit {
   products: Product[]=[]
   categoryName: string
-  constructor(private route: ActivatedRoute, private productServ: ProductsService) { }
+  constructor(private productServ: ProductsService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void { 
   }
-  onSelect(categoryId: number) {
+  async onSelect(categoryId: number) {
     this.productServ.getProductsByCategory(categoryId).subscribe(value => {
-      this.products = value
-      console.log(this.products);
-      
-    })
-  }
 
+      this.products = value
+    });
+  }
 }
 

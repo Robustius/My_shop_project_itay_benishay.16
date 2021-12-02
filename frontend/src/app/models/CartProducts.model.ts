@@ -6,5 +6,9 @@ export class CartProducts {
         public quantity: number,
         public price:number,
         public cartId:number
-    ) { }
+    ) {
+
+       
+     }
+   
 }

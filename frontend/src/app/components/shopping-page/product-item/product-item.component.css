@@ -1,0 +1,9 @@
+.float{
+    float: left;
+}
+.sizing{
+    float: left;
+    width:  260px;
+    height: 180px;
+    object-fit: cover; 
+} 

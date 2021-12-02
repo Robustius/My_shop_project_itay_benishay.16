@@ -6,15 +6,15 @@ export const router = express.Router();
 
 router.post('/verify', async (req, res) => {
     try {
-console.log(req.body);
+
         const idTaken = await verify(req.body)
 
         if (idTaken.length >= 1) {
-            console.log(idTaken, `Controller`);
+            
             return res.status(406).send(idTaken);
 
         } else {
-            console.log(idTaken, `good`);
+         
             return res.status(200).json(`GOOD`);
         }
     } catch (error) {
@@ -23,7 +23,6 @@ console.log(req.body);
 });
 
 router.post('/', async (req, res) => {
-    console.log(req.body);
     try {
         const newUser = await register(req.body)
         return res.status(200).json(newUser);

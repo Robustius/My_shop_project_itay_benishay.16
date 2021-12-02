@@ -18,10 +18,6 @@
         <button class="py-2 text-dark text-decoration-none" (click)="onSelect(4)">Wine&Drinks</button>
       </nav>
     </div>
-    <div *ngFor="let product of products">
-      {{product.productName}}
-    </div>
-    <div>
-      <router-outlet></router-outlet>
-     
-    </div>
+  
+    <app-products [products]="products"></app-products>
+    

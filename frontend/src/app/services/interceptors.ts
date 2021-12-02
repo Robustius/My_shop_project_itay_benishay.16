@@ -35,7 +35,7 @@ export class AndHttpInterceptor implements HttpInterceptor {
         // PROFILING
         finalize(() => {
           const profilingMsg = `${req.method} "${req.urlWithParams}"`;
-          console.log(profilingMsg);
+          // console.log(profilingMsg);
 
         })
       );

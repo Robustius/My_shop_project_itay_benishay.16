@@ -1,10 +1,11 @@
-<div class="card shadow-sm">
-    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img"
+<div class="card shadow-sm float">
+    <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225"   role="img"
         aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
         <title>Placeholder</title>
         <rect width="100%" height="100%" fill="#55595c" /><text x="40%" y="50%" fill="#eceeef"
             dy=".3em">{{product.productName}}</text>
-    </svg>
+    </svg> -->
+    <img class="sizing bd-placeholder-img card-img-top"  src="http://localhost:4000/products/upload/{{product.productName}}.png" alt="{{product.productName}}">
     <div class="card-body">
         <p class="card-title">{{product.productName|titlecase}}</p>
         <ul class="card-text">

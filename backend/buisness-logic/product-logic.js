@@ -24,9 +24,10 @@ export async function addProduct(product, image) {
         if (image == null) {
             throw console.log(image);
         }
+        console.log(product.imageName);
         let imgName = `${product.imageName}.png`;
         const absolutePath = path.join('D:/projects/My_shop_project_itay_benishay.16/backend/images', imgName);
-        await image.mv(absolutePath)  // mv = move 
+        await image.mv(absolutePath)   
     } catch (error) {
         console.log(error);
     }
@@ -37,18 +38,28 @@ export async function addProduct(product, image) {
         `insert into products (id,productName,price,imgId,categoryId) values (null,?,?,?,?)`, [product.productName, product.price, product.imageName, categoryId[0].categoryId]);
     return result
 }
-export async function getProductsById(category) {
+export async function getProductsById(categoryId) {
     // const id = await getProductId(category);
     try {
         const result = await executeQueryAsync(`
-        select * from products where categoryId=?`, [category])
+        select * from products where categoryId=?`, [categoryId])
+
         return result
+
     } catch (error) {
-        console.log(error); 
+        console.log(error);
     }
 }
 async function getProductId(category) {
-    const categoryId = await executeQueryAsync(
-        `select categoryId from category where categoryName='${category}'`);
+    const categoryId = await executeQueryAsync(`select categoryId from category where categoryName='${category}'`);
     return categoryId
+}
+
+export async function getProductByName(name) {
+    try {
+        const result = await executeQueryAsync(`select * from products where productName=?`, [name]);
+        return result
+    } catch (error) {
+        console.log(error);
+    }
 }

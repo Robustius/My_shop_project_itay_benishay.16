@@ -10,28 +10,21 @@ import { NgForm } from '@angular/forms';
 })
 export class ProductsComponent implements OnInit {
   @ViewChild('f') form: NgForm
-
-  products: Product[] = []
+  searchItem: Product[]
+  @Input() products: Product[] 
   product: string
   constructor(private productService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.search()
-    if (this.products.length < 2) {
-      this.getProducts()
-    }
+this.getProducts()
   }
 
   async getProducts() {
-    this.productService.getAllProducts().subscribe(value => this.products = value)
-    console.log(this.products);
+    this.productService.getAllProducts().subscribe(value => {
+      this.products = value
+    });
+
   }
-  search() {
-    if (this.products.length == 1) {
-      this.getProducts()
-      this.products = this.products.filter(product => product.productName.toLowerCase() == this.product.toLowerCase())
-    }
-    this.products = this.products.filter(product => product.productName.toLowerCase() == this.product.toLowerCase())
-  }
+
 
 }

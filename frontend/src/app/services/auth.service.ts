@@ -14,10 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   public getToken(): any {
-
     const currentUser = localStorage.getItem('currentUser');
-    console.log(currentUser);
-
     if (currentUser===null) {
       return undefined;
     }
@@ -31,7 +28,6 @@ export class AuthService {
 
   }
   FirstVerify(customer: Customer): Promise<any> {
-    console.log(customer,'here');
     return this.http.post(`http://localhost:4000/register/verify`, customer).toPromise();
   }
   register(customer: Customer): Promise<any> {

@@ -16,7 +16,14 @@ import { CartItemComponent } from './components/shopping-page/mycart/cart-item/c
 import { ProductsNav } from './components/shopping-page/products-nav/products-nav';
 import { ProductItemComponent } from './components/shopping-page/product-item/product-item.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component'
-  
+import {MatSidenavModule} from '@angular/material/sidenav'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatListModule } from '@angular/material/list'
+import { MatIconModule } from '@angular/material/icon'
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { HeaderComponent } from './components/header/header.component';
+import { LogoComponent } from './components/logo/logo.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +37,9 @@ import { ShoppingPageComponent } from './components/shopping-page/shopping-page.
     CartItemComponent,
     ProductsNav,
     ProductItemComponent,
-    ShoppingPageComponent
+    ShoppingPageComponent,
+    HeaderComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +48,13 @@ import { ShoppingPageComponent } from './components/shopping-page/shopping-page.
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatDividerModule,
+    MatListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule
+    
 
   ],
   providers: [{

@@ -1,12 +1,16 @@
 <h4>your cart</h4>
-
-<div *ngIf="cartProducts.length<=0">no items added..</div>
-<ul *ngIf="cartProducts.length>0" class="list-group">
-    <li class="list-group-item" *ngFor="let product of cartProducts">
-        <app-cart-item [cartProduct]='product'></app-cart-item>
-    </li>
-    <li class="list-group-item ">
-        <div> <strong>Total: {{totalPrice|currency:'ILS'}}</strong></div>
-        <div><a type="button" style="color: rgb(41, 16, 180);">Order</a></div>
-    </li>
-</ul>
+<mat-nav-list>
+    <mat-divider></mat-divider>
+    <div *ngIf="cartProducts.length<=0">your cart is empty :(...</div>
+    <ul *ngIf="cartProducts.length>0" class="list-group">
+        <li class="list-group-item" *ngFor="let product of cartProducts">
+            <mat-list-item >
+                <app-cart-item [cartProduct]='product' (deleteEvent)="updateCart($event)"></app-cart-item>
+            </mat-list-item>
+        </li> 
+        <li class="list-group-item ">
+            <div> <strong>Total: {{totalPrice|currency:'ILS'}}</strong></div>
+            <div><a type="button" style="color: rgb(41, 16, 180);">Order</a></div>
+        </li>
+    </ul>
+</mat-nav-list>

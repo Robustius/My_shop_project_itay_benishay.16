@@ -7,12 +7,16 @@ import { MessengerService } from 'src/app/services/messenger.service';
   styleUrls: ['./product-item.component.css']
 })
 export class ProductItemComponent implements OnInit {
-  @Input() product:Product
-  constructor(private msg:MessengerService) { }
+  @Input() product: Product
+  constructor(private msg: MessengerService) { }
 
   ngOnInit(): void {
+console.log(this.product);
+
   }
-  addToCart(){
+  addToCart() {
+    console.log(this.product);
+    
     this.msg.sendMsg(this.product)
   }
 
