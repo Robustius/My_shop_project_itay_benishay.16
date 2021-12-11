@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,14 +17,23 @@ import { CartItemComponent } from './components/shopping-page/mycart/cart-item/c
 import { ProductsNav } from './components/shopping-page/products-nav/products-nav';
 import { ProductItemComponent } from './components/shopping-page/product-item/product-item.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component'
-import {MatSidenavModule} from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatListModule } from '@angular/material/list'
 import { MatIconModule } from '@angular/material/icon'
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './components/header/header.component';
 import { LogoComponent } from './components/logo/logo.component'
+import { MatCardModule } from '@angular/material/card';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { OrderComponent } from './components/order-view/order.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { HighlightSearchPipe } from './pipes/highlight.pipe';
+import { SearchComponent } from './components/search/search.component';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -39,9 +49,14 @@ import { LogoComponent } from './components/logo/logo.component'
     ProductItemComponent,
     ShoppingPageComponent,
     HeaderComponent,
-    LogoComponent
+    LogoComponent,
+    OrderComponent,
+    HighlightSearchPipe,
+    SearchComponent,
+   
   ],
   imports: [
+    
     BrowserModule,
     HttpClientModule,
     FormsModule,
@@ -53,8 +68,14 @@ import { LogoComponent } from './components/logo/logo.component'
     MatMenuModule,
     MatIconModule,
     MatSidenavModule,
-    MatToolbarModule
-    
+    MatToolbarModule,
+    MatCardModule,
+    PopoverModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+
 
   ],
   providers: [{
@@ -65,3 +86,4 @@ import { LogoComponent } from './components/logo/logo.component'
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

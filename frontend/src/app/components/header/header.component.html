@@ -1,10 +1,8 @@
-<p>header works!</p>
-<mat-toolbar>
-    <mat-toolbar-row >
+<mat-toolbar class="myButton" >
+    <mat-toolbar-row>
         <button mat-icon-button (click)="toggleCart()">
             <mat-icon *ngIf="cartBarOpen">arrow_back_ios</mat-icon>
             <mat-icon *ngIf="!cartBarOpen">arrow_forward_ios</mat-icon>
         </button>
-       
     </mat-toolbar-row>
 </mat-toolbar>

@@ -1,24 +1,29 @@
-<div class="card shadow-sm float">
-    <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225"   role="img"
+<ng-template class="btn btn-info" triggers="focus" #popTemplate>
+    <input type="number" [(ngModel)]="quantity">
+ <button *ngIf="quantity>0" (click)="addToCart()" innerHtml="{{html}}"></button>
+</ng-template>
+
+<button type="button" class="btn" [popover]="popTemplate" popoverTitle="How many of this you need?"
+    [outsideClick]="true" placement="right">
+    <mat-card class="card shadow-sm float">
+        <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225"   role="img"
         aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
         <title>Placeholder</title>
         <rect width="100%" height="100%" fill="#55595c" /><text x="40%" y="50%" fill="#eceeef"
             dy=".3em">{{product.productName}}</text>
     </svg> -->
-    <img class="sizing bd-placeholder-img card-img-top"  src="http://localhost:4000/products/upload/{{product.productName}}.png" alt="{{product.productName}}">
-    <div class="card-body">
-        <p class="card-title">{{product.productName|titlecase}}</p>
-        <ul class="card-text">
-            {{product.price|currency:'ILS'}}
-        </ul>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-                <button 
-                type="button" 
-                class="btn btn-sm btn-outline-primary" 
-                (click)="addToCart()">Add</button>
-            </div>
-
+        <div class="container">
+            <mat-divider></mat-divider>
+            <img class="sizing bd-placeholder-img card-img-top"
+                src="http://localhost:4000/products/upload/{{product.imageName}}.png" alt="{{product.productName}}">
         </div>
-    </div>
-</div>
+        <div class="card-body">
+            <p class="card-title">{{product.productName|titlecase}}</p>
+            <ul class="card-text">
+                {{product.price|currency:'ILS'}}
+            </ul>
+            <div class="d-flex justify-content-between align-items-center">
+            </div>
+        </div>
+    </mat-card>
+</button>

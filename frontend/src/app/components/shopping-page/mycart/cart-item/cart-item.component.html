@@ -1,10 +1,7 @@
 <div>
     <span>
-        <!-- <div>
-            <img class="row" src="http://localhost:4000/products/upload/{{cartProduct.productName}}.png"
-                alt="{{cartProduct.productName}}">
-        </div> -->
-        <button (click)="delete(cartProduct.productId)">X</button>
+
+        <button *ngIf="router.url==='/home'" (click)="delete(cartProduct.productId)">X</button>
     </span>
     {{cartProduct.productName}}
     <span>x</span>

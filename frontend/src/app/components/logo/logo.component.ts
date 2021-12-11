@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { NgForm } from '@angular/forms';
@@ -8,18 +8,23 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./logo.component.css']
 })
 export class LogoComponent implements OnInit {
-  @ViewChild('f') form: NgForm
-  productToSearch:string
+  @ViewChild('f') form: NgForm;
+  @Output() searchResultEvent = new EventEmitter();
+  @Output() searched = new EventEmitter<string>();
+  productToSearch: string;
+  searchRecipt: string
   constructor(public router: Router, private prodService: ProductsService) { }
 
   ngOnInit(): void {
   }
   search() {
-    let products=this.prodService.getAllProducts().subscribe(value=>{
-      
+  
+    this.prodService.getProductByName(this.productToSearch).subscribe(value => {
+      this.searchResultEvent.emit(value)
     })
-    console.log(products);
-    
-    this.prodService.getProductByName(this.productToSearch).subscribe()
   }
+  onSearch():void{  
+    this.searched.emit(this.searchRecipt)
+  }
+  
 }

@@ -24,8 +24,8 @@ export class CustomerService {
     return this.http.post(`http://localhost:4000/customer/cart/add`, cartProducts).toPromise()
 
   }
-  public deleteCartProduct(ProductId: number): Observable<CartProducts> {
-    return this.http.delete<CartProducts>(`http://localhost:4000/customer/cart/delete-product/${ProductId}`).pipe(take(1))
+  public deleteCartProduct(ProductId: number): Observable<CartProducts[]> {
+    return this.http.delete<CartProducts[]>(`http://localhost:4000/customer/cart/delete-product/${ProductId}`).pipe(take(1))
   }
 }
 

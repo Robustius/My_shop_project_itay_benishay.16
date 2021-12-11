@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/Product.model';
 import { ProductsService } from 'src/app/services/products.service';
@@ -8,17 +8,18 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./products-nav.css']
 })
 export class ProductsNav implements OnInit {
-  products: Product[]=[]
+  @Output() productsEvent = new EventEmitter<any>()
   categoryName: string
   constructor(private productServ: ProductsService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
   }
   async onSelect(categoryId: number) {
     this.productServ.getProductsByCategory(categoryId).subscribe(value => {
 
-      this.products = value
-    });
+      this.productsEvent.emit(value)
+    })
+    
   }
 }
 

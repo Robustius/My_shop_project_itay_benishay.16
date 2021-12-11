@@ -9,17 +9,21 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppComponent } from './app.component';
 import { ShoppingPageComponent } from './components/shopping-page/shopping-page.component';
 import { ProductsNav } from './components/shopping-page/products-nav/products-nav';
+import { OrderComponent } from './components/order-view/order.component';
 
 const routes: Routes = [
 
   { path: "login", component: LoginComponent },
+
   { path: 'register', component: RegisterComponent },
+
   {
     path: 'adminview', component: AdminViewComponent,
     children: [
       { path: 'add', component: AddProductComponent }
     ]
   },
+
   {
     path: 'home', component: ShoppingPageComponent,
     children: [
@@ -31,8 +35,11 @@ const routes: Routes = [
         path: 'products/categoryId', component: ProductsNav
       }]
   },
+
   { path: 'search/:searchTerm', component: ProductsComponent },
+  { path: "order", component: OrderComponent },
   { path: "", redirectTo: "/login", pathMatch: 'full' },
+
 
 ];
 

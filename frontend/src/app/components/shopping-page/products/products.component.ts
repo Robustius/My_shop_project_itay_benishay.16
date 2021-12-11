@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import { Product } from 'src/app/models/Product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,18 +11,18 @@ import { NgForm } from '@angular/forms';
 export class ProductsComponent implements OnInit {
   @ViewChild('f') form: NgForm
   searchItem: Product[]
-  @Input() products: Product[] 
+  @Input() products: Product[]=[]
   product: string
   constructor(private productService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-this.getProducts()
+     this.getProducts()
   }
 
   async getProducts() {
-    this.productService.getAllProducts().subscribe(value => {
-      this.products = value
-    });
+    
+    const result = await this.productService.getAllProducts()
+    this.products = result
 
   }
 

@@ -1,12 +1,14 @@
-<mat-drawer-container > 
+<app-logo (searchResultEvent)="setProducts($event)"></app-logo>
+
+<mat-drawer-container style="background-color: rgb(87,223,111);"  >
     <mat-drawer mode="side" [opened]="cartBarOpen">
-        <app-mycart [cartDetails]='cart' [cartProducts]="cartItems"></app-mycart> 
-    </mat-drawer>
-    <!-- <mat-drawer-content > -->
-     <app-header (toggleUserCart)='cartToggler()' [cartBarOpen]='cartBarOpen'></app-header>
-        <app-products-nav></app-products-nav>
-        <h1 *ngIf="errors">{{errors}}</h1>
-    <!-- </mat-drawer-content> -->
+        <app-mycart [cartDetails]='cart' [cartProducts]="cartItems"></app-mycart >
+    </mat-drawer >
+   
+    <app-header  (toggleUserCart)='cartToggler()' [cartBarOpen]='cartBarOpen'></app-header>
+    <app-products-nav (productsEvent)="setProducts($event)" ></app-products-nav>
+    <app-products [products]="products"></app-products>
+    <h1 *ngIf="errors">{{errors}}</h1>
 </mat-drawer-container>
 
 

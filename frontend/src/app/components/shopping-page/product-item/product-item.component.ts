@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild,OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/Product.model';
 import { MessengerService } from 'src/app/services/messenger.service';
 @Component({
@@ -7,17 +8,18 @@ import { MessengerService } from 'src/app/services/messenger.service';
   styleUrls: ['./product-item.component.css']
 })
 export class ProductItemComponent implements OnInit {
+  html = `<button  class="primary">Add</button>`;
+  quantity: number
   @Input() product: Product
   constructor(private msg: MessengerService) { }
 
   ngOnInit(): void {
-console.log(this.product);
 
   }
   addToCart() {
-    console.log(this.product);
-    
-    this.msg.sendMsg(this.product)
-  }
 
+    this.msg.sendMsg(this.product, this.quantity)
+    
+  }
+  
 }

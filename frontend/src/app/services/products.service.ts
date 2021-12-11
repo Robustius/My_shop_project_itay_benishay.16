@@ -13,8 +13,8 @@ export class ProductsService {
   // getAllProducts(): Observable<Product[]> {
   //     return this.http.get<Product[]>(`${this.BASE_URL}`);
   // }
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`http://localhost:4000/products`).pipe(take(1));
+  getAllProducts(): Promise<any> {
+    return this.http.get<any>(`http://localhost:4000/products`).toPromise()
   }
   getProductsByCategory(categoryId: number): Observable<Product[]> {
     return this.http.get<Product[]>(`http://localhost:4000/products/id/${categoryId}`).pipe(take(1));

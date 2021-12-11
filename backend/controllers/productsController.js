@@ -37,7 +37,7 @@ router.get("/name/:productName", verifyLoggedIn, async (request, response) => {
         const product = await getProductByName(productName);
         return response.status(200).send(product)
     } catch (error) {
-
+console.log(error);
     }
 });
 

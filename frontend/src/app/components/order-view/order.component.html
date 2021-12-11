@@ -1,0 +1,18 @@
+<app-logo (searched)="onSearched($event)"></app-logo>
+<div class="card-container">
+    <div class="card" *ngFor="let product of cartItems">
+        <mat-list-item appElevation>
+            <mat-card-header>
+                <mat-card-title [innerHTML]="product.productName | highlightSearch: search">{{ product.productName }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <p>   {{ product.price|currency:'ILS'
+                        }} X amt{{product.quantity}}=<strong>{{product.quantity*product.price|currency:'ILS'}}</strong></p>
+                </mat-card-subtitle>
+            </mat-card-header>
+
+        </mat-list-item>
+    </div>
+    <strong>Total Price: &nbsp; {{totalPrice|currency:'ILS'}}</strong>
+    <button (click)="goBack()">go back</button>
+</div>

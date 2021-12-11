@@ -1,9 +1,15 @@
+
+
+.clickable {
+  cursor: pointer;
+  
+}
 .float{
     float: left;
-}
+} 
 .sizing{
     float: left;
-    width:  260px;
-    height: 180px;
+    max-height:256px;
+     max-width:252px;
     object-fit: cover; 
 } 

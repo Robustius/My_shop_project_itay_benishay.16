@@ -1,3 +1,4 @@
+import { nextTick } from "process";
 import { executeQueryAsync } from "../data-access-layer/dal.js";
 
 export async function getCartById(customerId) {
@@ -17,16 +18,17 @@ export async function getCartById(customerId) {
 }
 
 export async function addProductsTocart(product) {
+    let cartProducts
     try {
-        const ProductsExists = await executeQueryAsync(`delete from cartproducts where cartId=${product.cartId} `)
-        console.log(ProductsExists, "DELETED");
+         cartProducts = await executeQueryAsync(`delete  from cartproducts where cartId=${product.cartId} `)
+       
     } catch (error) {
         console.log(error);
     }
     try {
-        const cartProducts = await executeQueryAsync(`
+         cartProducts = await executeQueryAsync(`
         insert into cartproducts (id,productId,quantity,price,cartId) value(null,?,?,?,?)`, [product.productId, product.quantity, product.price, product.cartId]);
-        console.log(cartProducts, "ADDED");
+       
         return cartProducts
     } catch (error) {
 

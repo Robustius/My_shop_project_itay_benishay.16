@@ -1,0 +1,105 @@
+
+.myHeader{
+  margin-top: 140px;
+  background-image: url("http://i.imgur.com/HwvK2FJ.png");
+  max-width: 3333px;
+  background-repeat: repeat-x;
+  background-size: auto 500px;
+  margin-bottom: 0px;
+  height: 500px;
+  
+  
+}
+
+ 
+.animated_div {
+  top: 150px;
+  left: 650px;
+  margin-bottom: 150px;
+width:420px;
+position: absolute;
+background: #a4cf0aab;
+
+backdrop-filter: initial;
+color: #fff3e0;
+position: relative;
+font-weight:bold;
+
+font-size:70px;
+
+animation:animated_div 5s 1;
+-moz-animation:animated_div 5s 1;
+-webkit-animation:animated_div 5s 1;
+-o-animation:animated_div 5s 1;
+border-radius:5px;
+-webkit-border-radius:5px;
+}
+
+@keyframes animated_div
+{
+0% {transform: rotate(0deg);left:35px;}
+20% {transform: rotate(-13deg);right:800px;}
+50% {transform: rotate(0deg);left:500px;}
+60% {transform: rotate(0deg);left:700px;}
+70% {transform: rotate(0deg);left:350px;background:#ffdc69;}
+100% {transform: rotate(360deg);left:650px;}
+}
+
+@-webkit-keyframes animated_div
+{
+0% {-webkit-transform: rotate(0deg);left:35px;}
+25% {-webkit-transform: rotate(20deg);left:0px;}
+40% {-webkit-transform: rotate(0deg);left:500px;}
+55% {-webkit-transform: rotate(0deg);left:500px;}
+70% {-webkit-transform: rotate(0deg);left:500px;background:#1ec7e6;}
+100% {-webkit-transform: rotate(-360deg);left:0px;}
+}
+
+@-moz-keyframes animated_div
+{
+0%  {-moz-transform: rotate(0deg);left:0px;}
+26% {-moz-transform: rotate(20deg);left:0px;}
+50%  {-moz-transform: rotate(0deg);left:500px;}
+55%  {-moz-transform: rotate(0deg);left:500px;}
+70%  {-moz-transform: rotate(0deg);left:500px;background:#1ec7e6;}
+100% {-moz-transform: rotate(-360deg);left:0px;}
+}
+
+@-o-keyframes animated_div
+{
+0% {transform: rotate(0deg);left:0px;}
+25% {transform: rotate(20deg);left:0px;}
+50%  {transform: rotate(0deg);left:500px;}
+55%  {transform: rotate(0deg);left:500px;}
+70%  {transform: rotate(0deg);left:500px;background:#1ec7e6;}
+100% {transform: rotate(-360deg);left:0px;}
+}
+
+/* div>h1{
+  
+  font: 1em 'monoscope';
+  font-weight: bold;
+  font-size: 240px;
+  margin-bottom: 0px;
+} */
+
+
+ .spacer {
+  display: flex;
+   margin: 0px;
+   width: 18%;
+
+   z-index: 99999;
+   height: 28px;
+    flex: 1 1 1 auto;
+  }  
+  
+
+/* .search-input{
+ position: absolute;
+}
+
+  
+  .form-field {
+    width: 2%;
+  }  */

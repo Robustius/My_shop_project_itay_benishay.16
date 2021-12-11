@@ -4,13 +4,13 @@
     <div *ngIf="cartProducts.length<=0">your cart is empty :(...</div>
     <ul *ngIf="cartProducts.length>0" class="list-group">
         <li class="list-group-item" *ngFor="let product of cartProducts">
-            <mat-list-item >
+            <mat-list-item>
                 <app-cart-item [cartProduct]='product' (deleteEvent)="updateCart($event)"></app-cart-item>
             </mat-list-item>
         </li> 
         <li class="list-group-item ">
             <div> <strong>Total: {{totalPrice|currency:'ILS'}}</strong></div>
-            <div><a type="button" style="color: rgb(41, 16, 180);">Order</a></div>
+            <div *ngIf="router.url!='/order'" ><a type="button" style="color: rgb(41, 16, 180);" routerLink="/order">Order</a></div>
         </li>
     </ul>
 </mat-nav-list>
