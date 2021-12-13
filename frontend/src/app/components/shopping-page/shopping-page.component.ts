@@ -12,7 +12,7 @@ import { Product } from 'src/app/models/Product.model';
   styleUrls: ['./shopping-page.component.css']
 })
 export class ShoppingPageComponent implements OnInit {
-  cartBarOpen = true
+  cartBarOpen = false
   products: Product[]=[]
   cartItems: CartProducts[] = []
   errors: any

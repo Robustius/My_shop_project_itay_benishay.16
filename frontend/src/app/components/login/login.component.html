@@ -1,25 +1,39 @@
-<app-logo></app-logo>
-<mat-grid-list cols="1" class=" loginCard">
-    <div class="row"></div>
-    <mat-grid-tile colspan="1" >
-        <div style="flex-direction: column;">
-            <h1 *ngIf="!token">Welcome Please Login</h1>
-            <h1 *ngIf="token">Enjoy the shop!</h1>
-        </div>
+<mat-grid-list cols="1"  class="" style="display: block;">
+    <mat-grid-tile-header >
+        <app-logo>
+        </app-logo>
+    </mat-grid-tile-header>
 
-        <button *ngIf="isAdmin" [routerLink]='["/adminview"]'>Welcome Admin<br> start </button>
-        <button *ngIf="!isAdmin" [routerLink]="['/home']" [disabled]="!token">Start Shopping /<br>resume existing
-            one..</button>
-        <div *ngIf="!token">
-            <p>{{errors?.error|json}}</p>
-            <input type="email" [(ngModel)]="email" placeholder="User Name" required><br><br>
-            <input type="password" [(ngModel)]="password" placeholder="password" required>
-            <button (click)=onLogin()>Login</button>&nbsp; <a routerLink='/register'>Sign Up</a>
-        </div>
+
+
+    <mat-list-item cols="2">
+        <mat-grid-tile-header *ngIf="token ">
+            <h3
+                style="font-size: 100px;font-family: 'Segoe UI', -apple-system, Roboto, Oxygen, Ubuntu, 'Open Sans', sans-serif; color: rgb(205, 245, 30);">
+                Enjoy the shop!
+            </h3>
+        </mat-grid-tile-header>
         
-    </mat-grid-tile >
-   
-    <mat-grid-tile *ngIf="token" class="row" >
-        <mat-list-item   *ngFor="let item of userCart">{{item|json}}</mat-list-item>
-    </mat-grid-tile>
+<mat-grid-list cols="2"  rowHeight="400px" style="top: 100px;">
+    <tr>
+            <button  mat-flat-button *ngIf="isAdmin " [routerLink]='["/adminview "]'>Welcome Admin<br> start </button>
+            <button  mat-flat-button
+                
+                *ngIf="!isAdmin " [routerLink]="['/home'] " [disabled]="!token ">Start Shopping /<br>resume existing
+                one..</button> 
+    </tr>
+       <tr></tr>
+            
+            <input type="email " [(ngModel)]="email " placeholder="User Name " required><br>
+            <input type="password " [(ngModel)]="password " placeholder="password " required>
+            <p>{{errors?.error|titlecase}}</p>
+            <button (click)=onLogin()>Login</button>&nbsp; <a routerLink='/register'>Sign Up</a>
+       </mat-grid-list>
+    </mat-list-item>
+
+
+
+    <mat-list-item  *ngIf="token">
+        <app-mycart style=" left: 500px;width: 300px; max-height: 100%;"></app-mycart>
+    </mat-list-item>
 </mat-grid-list>

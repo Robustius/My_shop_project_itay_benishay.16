@@ -1,0 +1,37 @@
+<h2 style="border-bottom: 3px solid;">Order</h2>
+<h3 style="border-bottom: 3px solid;">Shipping Details</h3>
+<p style="width: 500px;" >
+  
+    <mat-form-field  appearance="legacy">
+        <mat-label>City</mat-label>
+        <mat-select  >
+          <mat-option (dblclick)="setUserInfo(true)"  *ngFor="let city of cities" value="city">{{city}}</mat-option>
+        </mat-select>
+        <mat-hint>please choose</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="standard">
+      <mat-label>street</mat-label>
+      <input matInput placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Fill form field</mat-label>
+      <input matInput placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Outline form field</mat-label>
+      <input matInput placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+
+  </p>

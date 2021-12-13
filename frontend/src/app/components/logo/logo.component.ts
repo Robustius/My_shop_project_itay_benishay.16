@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./logo.component.css']
 })
 export class LogoComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+  // @ViewChild('f') form: NgForm;
   @Output() searchResultEvent = new EventEmitter();
   @Output() searched = new EventEmitter<string>();
   productToSearch: string;

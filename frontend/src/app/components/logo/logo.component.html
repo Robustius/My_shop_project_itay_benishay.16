@@ -1,29 +1,24 @@
+<mat-grid-list cols="2" rows="2" rowHeight="298px"  class="appLogo">
+  <mat-grid-tile colspan="2" rowspan="1"><h1 class="animated_p">HA-MARKOL </h1></mat-grid-tile>
+  
+<mat-grid-tile colspan="1" rowspan="1" class="header">
 
-    
-    <div class="container myHeader">     
-           
-           
-            <p class="animated_div">HA-MARKOL </p>
-           
-           
-            <form style="position: relative; z-index: 1;top: 297px;left: 248px;" *ngIf="router.url==='/home'"  (ngSubmit)="search()"
-                #f="ngForm">
-                <span class="spacer"> 
-                <input class='search-input' type="search" [(ngModel)]='productToSearch' name="productToSearch"
-                    class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-                <input style="padding: 3px;" type="submit" value="Search"></span>
-            </form>
-       
-            <mat-toolbar class="search-bar" *ngIf="router.url==='/order'">
-                <span>Search in recipt...</span>
-                <span class="spacer"></span>
-                <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
-                <mat-form-field  class="form-field">
-                  <input  [(ngModel)]='searchRecipt' matInput (input)="onSearch()" />
-                </mat-form-field>
-              </mat-toolbar>
+<div>
+  <form class="search" *ngIf="router.url==='/home'" (ngSubmit)="search()" #f="ngForm">
+    <p>
+      <input class='search-input' type="search" [(ngModel)]='productToSearch' name="productToSearch"
+        class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+      <input style="padding: 3px;" type="submit" value="Search"></p>
+      
+  </form>
+</div>
 
-        
-
-        
-    </div>
+  <mat-toolbar  class="search-bar" *ngIf="router.url==='/order'">
+    <span>Search in recipt...</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+    <mat-form-field class="form-field">
+      <input [(ngModel)]='searchRecipt' matInput (input)="onSearch()" />
+    </mat-form-field>
+  </mat-toolbar>
+</mat-grid-tile>
+</mat-grid-list>

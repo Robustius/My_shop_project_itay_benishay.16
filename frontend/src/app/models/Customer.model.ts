@@ -1,3 +1,5 @@
+import { CustomerService } from "../services/customer.service";
+
 export enum Cities {
     telvaviv,
     jerisalem,
@@ -11,6 +13,7 @@ export enum Cities {
     Holon
 
 }
+
 
 export class Customer {
 
@@ -28,7 +31,7 @@ export class Customer {
 
     }
 
-    public getCity() {
+    public getCustomer() {
 
 
     }

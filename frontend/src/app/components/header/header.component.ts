@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 @Output() toggleUserCart:EventEmitter<any>=new EventEmitter()
-@Input()  cartBarOpen:boolean 
+@Input()  cartBarOpen:boolean =true
   constructor() { }
 
   ngOnInit(): void {

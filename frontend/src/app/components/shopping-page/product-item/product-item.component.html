@@ -1,29 +1,28 @@
-<ng-template class="btn btn-info" triggers="focus" #popTemplate>
-    <input type="number" [(ngModel)]="quantity">
- <button *ngIf="quantity>0" (click)="addToCart()" innerHtml="{{html}}"></button>
-</ng-template>
 
-<button type="button" class="btn" [popover]="popTemplate" popoverTitle="How many of this you need?"
-    [outsideClick]="true" placement="right">
-    <mat-card class="card shadow-sm float">
-        <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225"   role="img"
-        aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <title>Placeholder</title>
-        <rect width="100%" height="100%" fill="#55595c" /><text x="40%" y="50%" fill="#eceeef"
-            dy=".3em">{{product.productName}}</text>
-    </svg> -->
-        <div class="container">
-            <mat-divider></mat-divider>
-            <img class="sizing bd-placeholder-img card-img-top"
-                src="http://localhost:4000/products/upload/{{product.imageName}}.png" alt="{{product.productName}}">
-        </div>
-        <div class="card-body">
-            <p class="card-title">{{product.productName|titlecase}}</p>
-            <ul class="card-text">
+<mat-grid-list cols="1" rowHeight="250px" class="item-card  ">
+    <mat-grid-tile colspan="1" >
+    <ng-template triggers="focus" #popTemplate>
+        <input type="number" [(ngModel)]="quantity">
+        <button *ngIf="quantity>0" (click)="addToCart()" innerHtml="{{html}}"></button>
+    </ng-template>
+
+    <button  style="width: 600px;height: 191px; padding: 0px;" 
+    type="button" class="btn" mat-button mat-card-l-image
+        [popover]="popTemplate" 
+        popoverTitle="How many of this you need?" 
+        [outsideClick]="true" placement="top">
+        <img mat-card-md-image style="width: 286px;margin: 0%;height: 194px;"
+            src="http://localhost:4000/products/upload/{{product.imageName}}.png" alt="{{product.productName}}">
+        <mat-card-content style="
+            margin: 0px;
+        " class="card-content">
+            <p>{{product.productName|titlecase}}
+
                 {{product.price|currency:'ILS'}}
-            </ul>
-            <div class="d-flex justify-content-between align-items-center">
+            </p>
+            <div class="d-flex  align-items-center">
             </div>
-        </div>
-    </mat-card>
-</button>
+        </mat-card-content>
+    </button>
+</mat-grid-tile>
+</mat-grid-list>

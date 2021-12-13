@@ -34,7 +34,10 @@ import { MatInputModule } from '@angular/material/input';
 import { HighlightSearchPipe } from './pipes/highlight.pipe';
 import { SearchComponent } from './components/search/search.component';
 import {MatButtonModule} from '@angular/material/button';
-
+import { OrderFormComponent } from './components/order-view/order-form/order-form.component';
+import { OrderReciptComponent } from './components/order-view/order-recipt/order-recipt.component';
+import { MatSelectModule } from '@angular/material/select';
+import { Customer } from './models/Customer.model';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -53,6 +56,8 @@ import {MatButtonModule} from '@angular/material/button';
     OrderComponent,
     HighlightSearchPipe,
     SearchComponent,
+    OrderFormComponent,
+    OrderReciptComponent,
    
   ],
   imports: [
@@ -74,7 +79,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
 
 
   ],
@@ -83,6 +89,7 @@ import {MatButtonModule} from '@angular/material/button';
     useClass: AndHttpInterceptor,
     multi: true
   }],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
