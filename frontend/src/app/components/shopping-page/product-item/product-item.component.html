@@ -1,28 +1,35 @@
+<mat-grid-list cols="4"  rowHeight="1:2" > 
 
-<mat-grid-list cols="1" rowHeight="250px" class="item-card  ">
-    <mat-grid-tile colspan="1" >
-    <ng-template triggers="focus" #popTemplate>
-        <input type="number" [(ngModel)]="quantity">
-        <button *ngIf="quantity>0" (click)="addToCart()" innerHtml="{{html}}"></button>
-    </ng-template>
+<ng-template triggers="focus" #popTemplate>
+    
+        <mat-form-field appearance="outline">
+            <input matInput value="0" type="number" [(ngModel)]="quantity">
+        </mat-form-field>
+    
+    <span>
+        <button mat-button *ngIf="quantity>0" (click)="addToCart()" innerHtml="{{html}}"></button>
+    </span>
+</ng-template>
 
-    <button  style="width: 600px;height: 191px; padding: 0px;" 
-    type="button" class="btn" mat-button mat-card-l-image
-        [popover]="popTemplate" 
-        popoverTitle="How many of this you need?" 
-        [outsideClick]="true" placement="top">
-        <img mat-card-md-image style="width: 286px;margin: 0%;height: 194px;"
-            src="http://localhost:4000/products/upload/{{product.imageName}}.png" alt="{{product.productName}}">
-        <mat-card-content style="
-            margin: 0px;
-        " class="card-content">
-            <p>{{product.productName|titlecase}}
+<mat-card-content >
 
-                {{product.price|currency:'ILS'}}
-            </p>
-            <div class="d-flex  align-items-center">
-            </div>
-        </mat-card-content>
+    <button container="body" type="button" class="btn" mat-button [popover]="popTemplate"
+        popoverTitle="How many of this you need?" [outsideClick]="true" popover-append-to-body="true" placement="left">
+        <mat-card>
+
+            <img mat-card-sm-image src="http://localhost:4000/products/upload/{{product.imageName}}.png"
+                alt="{{product.productName}}">
+            <mat-card-content class="card-content">
+                <p>{{product.productName|titlecase}}
+                    {{product.price|currency:'ILS'}}
+                </p>
+            </mat-card-content>
+        </mat-card>
+
+
     </button>
-</mat-grid-tile>
+</mat-card-content>
+
+
+
 </mat-grid-list>

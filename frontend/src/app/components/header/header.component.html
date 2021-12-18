@@ -1,14 +1,13 @@
+<!-- toggle cart button -->
+
 <mat-toolbar class="myButton">
-    <mat-toolbar-row> <mat-card-header>
-        <button mat-icon-button (click)="toggleCart()">
-
-            <mat-icon *ngIf="!cartBarOpen">arrow_back_ios</mat-icon>
-
-            <mat-icon *ngIf="cartBarOpen">arrow_forward_ios</mat-icon>
-        </button>
-       
-            <p *ngIf="cartBarOpen">open cart</p>
-            <p *ngIf="!cartBarOpen">close cart</p>
+    <mat-toolbar-row>
+        <mat-card-header>
+          
+            <button mat-icon-button  (click)="toggleCart()">
+                <mat-icon *ngIf="!cartBarOpen" fontIcon="style">arrow_back_web</mat-icon>
+                <mat-icon *ngIf="cartBarOpen">arrow_forward_web</mat-icon>
+            </button>
         </mat-card-header>
     </mat-toolbar-row>
 </mat-toolbar>

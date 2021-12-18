@@ -1,29 +1,28 @@
-<mat-grid-list cols="4"  rowHeight="2:1" >
+<mat-grid-list  cols="6"  rowHeight="2:1" >
 
         <app-logo (searched)="onSearched($event)" class=""></app-logo>
 
-    <mat-grid-tile  rowspan="2" colspan="2">
-        <mat-list-item *ngFor="let product of cartItems">
-            <mat-list-item matLine>
-                <mat-card-header>
-                    <mat-card-title [innerHTML]="product.productName | highlightSearch: search">{{ product.productName
+    <mat-grid-tile    rowspan="2" colspan="1">
+        <mat-list>
+        <mat-list-item *ngFor="let product of cartItems" >
+             
+                    <mat-card-content  [innerHTML]="product.productName | highlightSearch: search">{{ product.productName
                         }}
-                    </mat-card-title>
-                    <mat-card-subtitle>
-                        <p> {{ product.price|currency:'ILS'
-                            }} X
-                            amt{{product.quantity}}=<strong>{{product.quantity*product.price|currency:'ILS'}}</strong>
-                        </p>
-                    </mat-card-subtitle>
-                </mat-card-header>
-            </mat-list-item>
+                    </mat-card-content>&nbsp;
+                    <mat-card-content>
+                         {{ product.price|currency:'ILS'
+                            }}&nbsp; X
+                            &nbsp;{{product.quantity}}=<strong>{{product.quantity*product.price|currency:'ILS'}}</strong>
+                        
+                    </mat-card-content>         
+            
         </mat-list-item>
         <strong>Total Price: &nbsp; {{totalPrice|currency:'ILS'}}</strong>
-        <button (click)="goBack()">go back</button>
+        <button  mat-button color="primary" (click)="goBack()">go back</button>
+    </mat-list>
     </mat-grid-tile>
 
-    <mat-grid-tile rowspan="3" colspan="2">
-        <app-order-form></app-order-form>
+    <mat-grid-tile rowspan="4" colspan="3">
+        <app-order-form [orderDetails]="orderDetails" [customerDetails]="customerDetails" [cartItems]="cartItems"></app-order-form>
     </mat-grid-tile>
-
 </mat-grid-list>

@@ -1,21 +1,15 @@
-
-.item-card{
+/* 
+ .item-card{
   margin-left: 5px;
 position: relative;
 
-width: 250px;
+
 
   background-color: rgba(216, 198, 198, 0);
   
-}
-/* .clickable {
-  cursor: progress;
-  
-} */
-/* .float{
-    float: left;
 }  */
-.mat-button-wrapper{
+
+ /* .mat-button-wrapper{
  padding: 0%;
  margin: 0%;
 }
@@ -30,4 +24,5 @@ mat-card{
 .card-content{
 
      
-} 
+}    */
+

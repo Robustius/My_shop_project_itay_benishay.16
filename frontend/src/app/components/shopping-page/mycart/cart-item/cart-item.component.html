@@ -1,12 +1,13 @@
-<div>
-    <span>
 
-        <button *ngIf="router.url==='/home'" (click)="delete(cartProduct.productId)">X</button>
-    </span>
+<span>
+
+    <button mat-icon-button   *ngIf="router.url==='/home'" (click)="delete(cartProduct.productId)">X</button>
+</span>
+
+    
     {{cartProduct.productName}}
     <span>x</span>
     <span>{{cartProduct.quantity}}
     </span> - <span>{{cartProduct.price|currency:"ILS"}}
     </span>&nbsp;
     <strong>{{cartProduct.quantity*cartProduct.price|currency:'ILS'}}</strong>
-</div>

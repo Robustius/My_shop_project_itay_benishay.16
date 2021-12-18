@@ -10,18 +10,23 @@ import { Customer } from '../models/Customer.model';
 })
 export class AuthService {
   BASE_URL = environment.loginEndPoint;
+  
+  // *** use router location through service 
+  //       ->nav to /login if no currentUser set ***
 
   constructor(private http: HttpClient) { }
 
   public getToken(): any {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser===null) {
+    if (currentUser === null) {
       return undefined;
     }
+
     else {
       return JSON.parse(currentUser);
     }
   }
+ 
 
   login(creds: UserCreds): Promise<any> {
     return this.http.post(`${this.BASE_URL}`, creds).toPromise();

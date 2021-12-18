@@ -30,6 +30,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { OrderComponent } from './components/order-view/order.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+// import { ErrorsModel } from './components/order-view/order-form/order-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { HighlightSearchPipe } from './pipes/highlight.pipe';
 import { SearchComponent } from './components/search/search.component';
@@ -38,6 +39,9 @@ import { OrderFormComponent } from './components/order-view/order-form/order-for
 import { OrderReciptComponent } from './components/order-view/order-recipt/order-recipt.component';
 import { MatSelectModule } from '@angular/material/select';
 import { Customer } from './models/Customer.model';
+import {MatDialogModule} from '@angular/material/dialog';
+import { OrderDialogComponent } from './components/order-view/order-form/order-dialog/order-dialog.component';
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -58,8 +62,13 @@ import { Customer } from './models/Customer.model';
     SearchComponent,
     OrderFormComponent,
     OrderReciptComponent,
+    OrderDialogComponent,
+    
+    
+
    
   ],
+  // entryComponents:[OrderDialogComponent],
   imports: [
     
     BrowserModule,
@@ -80,9 +89,9 @@ import { Customer } from './models/Customer.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
-
-
+    MatSelectModule,
+    MatDialogModule,
+   
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,16 +1,17 @@
-<h4>your cart</h4>
-<mat-nav-list>
+<mat-nav-list style="max-width: 250px; background-color: rgba(220, 183, 20, 0.329);">
+    <h2>your cart</h2>
     <mat-divider></mat-divider>
-    <div *ngIf="cartProducts.length<=0">your cart is empty :(...</div>
-    <ul *ngIf="cartProducts.length>0" class="list-group">
-        <li class="list-group-item" *ngFor="let product of cartProducts">
-            <mat-list-item>
-                <app-cart-item [cartProduct]='product' (deleteEvent)="updateCart($event)"></app-cart-item>
-            </mat-list-item>
-        </li> 
+
+    <ul *ngIf="cartProducts.length<=0" class="list-group">your cart is empty :(...</ul>
+
+    <ul *ngIf="cartProducts.length>0" class="list-group" >
+        <li class="list-group-item" *ngFor="let product of cartProducts" style="background-color: coral;">
+            <app-cart-item [cartProduct]='product' (deleteEvent)="updateCart($event)" ></app-cart-item>
+        </li>
         <li class="list-group-item ">
             <div> <strong>Total: {{totalPrice|currency:'ILS'}}</strong></div>
-            <div *ngIf="router.url!='/order'" ><a type="button" style="color: rgb(41, 16, 180);" routerLink="/order">Order</a></div>
+            <div *ngIf="router.url!='/order'"><a mat-icon-button type="button" style="color: rgb(41, 16, 180);"
+                    routerLink="/order">Order</a></div>
         </li>
     </ul>
 </mat-nav-list>

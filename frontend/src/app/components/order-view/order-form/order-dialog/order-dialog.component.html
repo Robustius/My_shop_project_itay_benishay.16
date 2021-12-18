@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>קנייתך בוצעה בהצלחה!</h2>
+<p mat-dialog-content>תודה שקנית אצלנו 😄</p>
+<mat-dialog-actions>
+    <p style="direction: rtl;">להורדת המסמך<a style="background-color: blue;" (click)="download()"><strong>click here</strong></a></p>
+</mat-dialog-actions>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close mat-dialog-close="true">אישור</button>
+</mat-dialog-actions>
+<div hidden="true">
+    <div id="show-data">
+        <p class="Precipt" *ngFor="let item of cartItems">{{item.productName}}: {{item.quantity}} - {{item.price}} ש"ח</p>
+        <h1 class="Precipt">total -  {{this.totalPrice}} ש"ח</h1>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+input::-webkit-datetime-edit-day-field { color: rgb(128, 0, 0); }
+input::-webkit-datetime-picker-field {
+    position: absolute;
+    top: 3px;
+    right: 0;
+   background-color: lightcoral;
+    opacity: 1;
+}

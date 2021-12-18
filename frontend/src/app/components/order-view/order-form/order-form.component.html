@@ -1,37 +1,66 @@
 <h2 style="border-bottom: 3px solid;">Order</h2>
 <h3 style="border-bottom: 3px solid;">Shipping Details</h3>
-<p style="width: 500px;" >
-  
-    <mat-form-field  appearance="legacy">
-        <mat-label>City</mat-label>
-        <mat-select  >
-          <mat-option (dblclick)="setUserInfo(true)"  *ngFor="let city of cities" value="city">{{city}}</mat-option>
-        </mat-select>
-        <mat-hint>please choose</mat-hint>
+<form #f="ngForm" (ngSubmit)="validateForm()">
+  <p style="width: 600px;" matInput>
+    <mat-form-field class="form-group" appearance="outline">
+      <mat-label>City</mat-label>
+      <mat-select [(ngModel)]="orderDetails.city" name="city" class="form-control" required #city="ngModel">
+        <mat-option>double click for you current signed city</mat-option>
+        <mat-option *ngFor="let city of cities" [value]="city">{{city}}
+        </mat-option>
+      </mat-select>
+      <mat-hint (dblclick)="setUserInfo(customerDetails.city)" style="font: bolder;">Double click for preset<mat-icon>
+          sentiment_satisfied</mat-icon>
+      </mat-hint>
+
+      <div class="form-group" *ngIf="city.errors && (city.dirty || city.touched)">
+        <p *ngIf="city.errors?.required">city is required</p>
+      </div>
     </mat-form-field>
   </p>
   <p>
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard" class="form-group" [ngClass]="{
+    'has-danger': street.invalid && (street.dirty || street.touched),
+    'has-success': street.valid && (street.dirty || street.touched)
+}">
       <mat-label>street</mat-label>
-      <input matInput placeholder="Placeholder">
-      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Fill form field</mat-label>
-      <input matInput placeholder="Placeholder">
-      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      <mat-hint>Hint</mat-hint>
+      <input matInput type="text" name="street" #street="ngModel" required minlength="3" class="form-control"
+        placeholder="outline" [(ngModel)]="orderDetails.street" (dblclick)="setUserInfo(customerDetails.street)">
+      <mat-icon matSuffix>sentiment_satisfied</mat-icon>
+      <mat-hint>hashmonai 36..</mat-hint>
+      <div class="form-group" *ngIf="street.errors && (street.dirty || street.touched)">
+        <p *ngIf="street.errors?.required">street is required</p>
+      </div>
     </mat-form-field>
   </p>
   <p>
     <mat-form-field appearance="outline">
-      <mat-label>Outline form field</mat-label>
-      <input matInput placeholder="Placeholder">
-      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-      <mat-hint>Hint</mat-hint>
+      <mat-label>Date to deliver?</mat-label>
+      <input matInput (change)="checkDate()" required name="date" #date="ngModel" class="form-control date-input" minlength="3"
+        [(ngModel)]="orderDetails.deliveryDate" matInput type="date" placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_satisfied</mat-icon>
+      
+      <div *ngIf="date.errors?.value">{{date.errors?.value}}</div>
+      <div class="form-group" *ngIf="date.errors && (date.dirty || date.touched)">
+        <p *ngIf="date.errors?.required">{{date.errors.value|json}}</p>
+      </div>
     </mat-form-field>
+  </p>
+  <h3 style="border-bottom: 3px solid;">Payment</h3>
+  <p>
+    <mat-form-field required appearance="outline">
+      <mat-label>credit-Card</mat-label>
+      <input matInput type="number" name="creditCard" required minlength="10" (change)="validateCreditCardNumber()"
+        [(ngModel)]='creditCard' class="form-control" placeholder="12345678910...">
+      <mat-icon matSuffix>sentiment_sad</mat-icon>
+      <mat-hint>masterCard,Visa,Express..</mat-hint>
+    </mat-form-field>
+    <mat-hint *ngIf="errors" style="color: rgb(216, 15, 15); font-size: 15px; font-style: oblique;">{{errors}}
+    </mat-hint>
 
   </p>
+  <button mat-raised-button type="submit" class="btn btn-primary" (change)="validateCreditCardNumber()"  [disabled]="f.invalid">
+    Submit
+  </button>
+</form>
+

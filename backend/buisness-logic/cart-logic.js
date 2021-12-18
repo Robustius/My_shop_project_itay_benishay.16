@@ -1,3 +1,4 @@
+import { error } from "console";
 import { nextTick } from "process";
 import { executeQueryAsync } from "../data-access-layer/dal.js";
 
@@ -20,15 +21,15 @@ export async function getCartById(customerId) {
 export async function addProductsTocart(product) {
     let cartProducts
     try {
-         cartProducts = await executeQueryAsync(`delete  from cartproducts where cartId=${product.cartId} `)
-       
+        cartProducts = await executeQueryAsync(`delete  from cartproducts where cartId=${product.cartId} `)
+
     } catch (error) {
         console.log(error);
     }
     try {
-         cartProducts = await executeQueryAsync(`
+        cartProducts = await executeQueryAsync(`
         insert into cartproducts (id,productId,quantity,price,cartId) value(null,?,?,?,?)`, [product.productId, product.quantity, product.price, product.cartId]);
-       
+
         return cartProducts
     } catch (error) {
 
@@ -51,4 +52,18 @@ export async function deleteCartProduct(id) {
     } catch (error) {
         console.log(error);
     }
+}
+export async function getCustomerDetails(id) {
+    try {
+        const cDetails = await executeQueryAsync(`select id,city,street from customers where id=?`,[id])
+    if(!cDetails){
+        return
+    }else{
+        return cDetails
+    }
+    } catch (error) {
+        
+    }
+    
+
 }

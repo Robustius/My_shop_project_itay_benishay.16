@@ -80,7 +80,6 @@ this.updateCart(this.cartId)
         this.cartProducts[i].quantity += quantity
         productExists = true
         console.log(this.cartProducts, '=========', this.totalPrice);
-
         break;
       }
     };
