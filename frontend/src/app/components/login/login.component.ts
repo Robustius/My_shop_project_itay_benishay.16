@@ -6,6 +6,9 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CartProducts } from 'src/app/models/CartProducts.model';
+import { OrderService } from 'src/app/services/order.service';
+import { CartModel } from 'src/app/models/Cart.model';
+import { Order } from 'src/app/models/Order.model';
 
 @Component({
   selector: 'app-login',
@@ -19,55 +22,74 @@ export class LoginComponent implements OnInit {
   getToken: Promise<string>;
   errors: any = 'please Log-in..'
   currentUser: any = localStorage.getItem('currentUser');
-  userCart: CartProducts[] = []
-  constructor(private authService: AuthService, private cart: CustomerService, private router: Router) { }
+  cartDetails: CartModel
+  cartProducts: CartProducts[] = []
+  constructor(private authService: AuthService, private cart: CustomerService, private router: Router, private orderService: OrderService) { }
   isAdmin: boolean | string = false
-  isloggedin: boolean | string
+  userRole: boolean | string
+  totalPrice: number
+  lastOrder: Order
+
   ngOnInit(): void {
-    this.isloggedin = false
+
+    this.userRole = false
     this.token = this.authService.getToken();
     if (this.token) {
-      this.isloggedin = this.token.role
-      this.isloggedin == "admin" ? this.isAdmin = true : this.isAdmin = false;
-      this.setExistingCart();
+      this.userRole = this.token.role
+      this.userRole == "admin" ? this.isAdmin = true : this.isAdmin = false;
+      this.setUserPreset();
       return
     }
     this.errors = "please Log-in..";
   }
+
   async onLogin() {
     this.getToken = this.authService.login({
       email: this.email,
       password: this.password
     }).then(value => {
-      console.log(value);
-
-
       this.token = value.token
       if (!this.token) {
         return this.errors = value
       }
-      console.log(this.token);
-
       localStorage.setItem('currentUser', JSON.stringify(value));
-      this.isloggedin = value.role
-      this.isloggedin === "admin" ? this.isAdmin = true : this.isAdmin = false;
+      this.userRole = value.role
+      this.userRole === "admin" ? this.isAdmin = true : this.isAdmin = false;
       this.email = '';
       this.password = '';
-      this.setExistingCart();
+      this.setUserPreset();
 
     }).catch((error) => {
       this.errors = error
     });
   }
-  public async setExistingCart() {
+  public async setUserPreset() {
+    this.totalPrice = 0
+    try {
+      const cart = await this.cart.getCart();
+      this.cartDetails = cart[0]
+      const cartItems = await this.cart.getCartItems(cart[0].id)
+      this.cartProducts = cartItems;
+      this.cartProducts.forEach(item => {
+        this.totalPrice += item.quantity * item.price;
+      });
+        try {
+          const lastOrder = await this.orderService.findLastOrder();
+          console.log(lastOrder);
+          
+          this.lastOrder = lastOrder[0]
+          console.log(this.lastOrder);
+          
+        } catch (error) {
+          console.log(error);
+        }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async setOrderCount() {
 
-  const cart = await this.cart.getCart();
-  const cartItems = await this.cart.getCartItems(cart[0].id)
-  this.userCart = cartItems;
-  let totalPrice = 0
-  this.userCart.forEach(item => {
-    totalPrice += item.quantity * item.price;
-  });
-}
+  }
 }
 

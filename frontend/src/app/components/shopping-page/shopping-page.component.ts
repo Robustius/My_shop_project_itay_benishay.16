@@ -25,6 +25,7 @@ export class ShoppingPageComponent implements OnInit {
     
     this.getCart(); 
   }
+  
  
   setProducts(products: Product[]) {
     this.products = products
@@ -34,7 +35,7 @@ export class ShoppingPageComponent implements OnInit {
   async getCart() {
     this.products=[]
     this.cartItems=[]
-    this.custServ.getCart().then(value => {
+    this.custServ.getCart().then(value => { 
       console.log(value);
       
       this.cart = value[0]

@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Customer } from '../models/Customer.model';
 import { Order } from '../models/Order.model';
 import { AuthService } from './auth.service';
 
@@ -33,11 +31,24 @@ export class OrderService {
     try {
       console.log(order);
       
-     return this.http.post<any>('http://localhost:4000/customer/user/order',order).toPromise()
+     return this.http.post<any>('http://localhost:4000/customer/user/order',order).toPromise();
         
     } catch (error) {
     console.log(error);
       
     }
   }
+  async findLastOrder():Promise<any>{
+    const token = this.auth.getToken()
+    try {
+      console.log(token);
+      
+       return this.http.get<any>(`http://localhost:4000/customer/user/last-order/${token.token}`).toPromise()
+    } catch (error) {
+      console.log(error);
+      
+    }
+   
+  }
+  
 }

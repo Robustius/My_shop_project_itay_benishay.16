@@ -25,72 +25,71 @@ import { CartProducts } from 'src/app/models/CartProducts.model';
 //   street:string;
 //   date:string;
 // }
-export class OrderFormComponent implements OnInit{
+export class OrderFormComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  @Input() cartItems:CartProducts[]
+  @Input()  cartItems: CartProducts[]
   @Input() customerDetails: Customer;
   @Input() orderDetails: Order;
   cartDetails: CartModel;
   cities: any = Object.keys(Cities).slice(10);
-  creditCard: number;
-  errors: any;
+  creditCard: number | string;
+  errors: any
   isValid: boolean = false
   isOpendialog = false
   constructor(private order: OrderService, private cart: CustomerService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.cart.getCart()
 
-    console.log(this.form, `im here`);
+    this.cart.getCart();
   }
-  validateForm() {
-console.log(this.form.errors);
 
-    if (this.isValid == false) {
-      this.cart.getCart().then(value => {
-        this.orderDetails.cartId = value[0].id;
-        this.orderDetails.customerId = value[0].customerId;
-        this.orderDetails.orderDate = value[0].startDate
 
-      }).catch(error =>
-        console.log(error)
-      );
-      // this.checkDate()?this.isValid=true:this.isValid=false
-      this.checkDate();
-      this.isValid = this.validateCreditCardNumber();
+  async validateForm() {
 
+    this.cart.getCart().then(async value => {
+      this.orderDetails.cartId = value[0].id;
+      this.orderDetails.customerId = value[0].customerId;
+      this.orderDetails.orderDate = value[0].startDate
       if (this.form.valid) {
-        this.postOrderToServer(this.orderDetails);
+        console.log(this.form, `im there`);
+        const posted = await this.postOrderToServer(this.orderDetails);
+        console.log(posted, "orderPosted?");
         this.openDialog();
         this.form.reset()
         this.isOpendialog = true
       }
-    }
+
+
+    }).catch(error =>
+      console.log(error)
+    );
+
+
+
   }
 
   async openDialog() {
-  
-    const dialogConfig=new MatDialogConfig();
+
+    const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-     items :this.cartItems
-  };
-  
-  
-      let dialogRef = this.dialog.open(OrderDialogComponent, dialogConfig)
+      items: this.cartItems
+    };
+
+
+    let dialogRef = this.dialog.open(OrderDialogComponent, dialogConfig)
     dialogRef.afterOpened().subscribe(dialogConfig => {
-     
+      
     });
+
   }
   async checkDate() {
     try {
-      //JOI DATE in nodejs from here
       const result = await this.order.verifyDate(this.orderDetails.deliveryDate);
 
       if (result[0].c >= 3) {
         this.isValid = false
         this.orderDetails.deliveryDate = undefined;
         this.errors = "busy day,try another day"
-        return
       } return
     } catch (error) {
       console.log(error);
@@ -105,8 +104,11 @@ console.log(this.form.errors);
     }
   }
   validateCreditCardNumber() {
+
     if (this.creditCard)
+
       var ccNum = this.creditCard.toString()
+
     var visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
     var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
     var amexpRegEx = /^(?:3[47][0-9]{13})$/;
@@ -119,27 +121,32 @@ console.log(this.form.errors);
 
       isValid = true;
     } else if (amexpRegEx.test(ccNum)) {
-      console.log('master');
+
       isValid = true;
     } else if (discovRegEx.test(ccNum)) {
-      console.log('master');
+
       isValid = true;
     }
 
-    if (isValid) {
-      this.orderDetails.ccv = Number(ccNum)
-      this.errors = 'valid';
+    if (isValid === true) {
 
-      return true
+      this.isValid = isValid
+      this.orderDetails.ccv = Number(ccNum)
+      this.errors = 'valid'
+      console.log(ccNum);
+      return this.isValid
     } else {
       this.isValid = false
+      console.log(ccNum, this.isValid);
+      this.form?.controls.creditCard.setErrors({ ccNum })
       this.errors = 'Card number is not valid' //if isValid is false return error and exit the validateform with error
-      return false
+      return this.isValid
     }
   }
 
   async postOrderToServer(order: Order) {
     try {
+
       if (this.isValid === true) {
         const result = await this.order.postOrder(order)
         console.log(result);

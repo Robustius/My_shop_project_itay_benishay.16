@@ -1,39 +1,76 @@
-<mat-grid-list cols="1" class="" style="display: block;">
-    <mat-grid-tile-header >
+<mat-grid-list cols="1" style="display: grid; background-color: rgb(36, 196, 211);">
+    <mat-grid-tile-header>
         <app-logo>
         </app-logo>
     </mat-grid-tile-header>
 
 
 
-    <mat-list-item cols="1" >
-        <mat-grid-tile-header *ngIf="token">
+    <mat-list-item cols="1">
+        <mat-grid-tile-header *ngIf="!token">
             <h3
-                style="font-size: 100px;font-family: 'Segoe UI', -apple-system, Roboto, Oxygen, Ubuntu, 'Open Sans', sans-serif; color: rgb(205, 245, 30);">
-                Enjoy the shop!
+                style="font-size:70px;font-family: 'Segoe UI', -apple-system, Roboto, Oxygen, Ubuntu, 'Open Sans', sans-serif; color: rgb(255, 255, 255);background-color: rgb(114, 114, 114); backdrop-filter: initial;">
+                Welcome for your first purchase!!
             </h3>
         </mat-grid-tile-header>
+        <mat-grid-tile-header *ngIf="token">
+            <h3
+                style="font-size: 100px;font-family: 'Segoe UI', -apple-system, Roboto, Oxygen, Ubuntu, 'Open Sans', sans-serif; color: rgb(255, 255, 255);background-color: rgba(114, 114, 114, 0.596); backdrop-filter: initial;">
+                Enjoy the shop!
+            </h3>
 
-        <mat-grid-list cols="2" rowHeight="400px" style="top: 100px;">
+        </mat-grid-tile-header>
+
+        <mat-grid-list cols="1" rowHeight="450px" style="top: 100px; background-color: rgb(87,223,111);">
+            <h2 *ngIf="totalPrice>0">you have an active cart from {{cartDetails.startDate|date}}<br> total:
+                {{totalPrice|currency:'ILS'}} </h2>
+            <h2 *ngIf="totalPrice==0&&lastOrder">Last purchase made on - {{lastOrder.orderDate|date}} total price :
+                {{lastOrder.price|currency:"ILS"}}</h2>
             <tr>
-                <button mat-flat-button *ngIf="isAdmin " [routerLink]='["/adminview "]'>Welcome Admin<br> start
+                <button *ngIf="isAdmin " [routerLink]='["/adminview "]'>Welcome Admin<br> start
                 </button>
-                <button mat-flat-button *ngIf="!isAdmin " [routerLink]="['/home'] " [disabled]="!token ">Start Shopping
-                    /<br>resume existing
-                    one..</button>
+                <button style="height: 155px; background-color: rgba(255, 255, 255, 0.445);;" *ngIf="!isAdmin"
+                    [routerLink]="['/home'] " [disabled]="!token ">
+                    <span style="font-size: 25px;" *ngIf="totalPrice===0">
+                        Start Shopping
+                    </span>
+                    <span *ngIf="totalPrice>0" style="font-size: 25px;">
+                        Continue Shopping
+                    </span>
+                    <p *ngIf="!token" style="font-size: 25px; color: rgb(0, 0, 0); ">Welcome Please sign-in..</p>
+                </button>
+               
             </tr>
             <tr></tr>
-
-            <input type="email" [(ngModel)]="email " placeholder="User Name " required><br>
-            <input type="password" [(ngModel)]="password " placeholder="password " required>
-            <p>{{errors?.error|titlecase}}</p>
-            <button (click)=onLogin()>Login</button>&nbsp; <a routerLink='/register'>Sign Up</a>
+            <mat-form-field appearance="legacy">
+                <input matInput type="email" [(ngModel)]="email " placeholder="User Name" required
+                    style="height: 25px;"><br>
+                <mat-divider></mat-divider>
+                <input matInput type="password" [(ngModel)]="password " placeholder="password" style="height: 25px;"
+                    required>
+                <p>{{errors?.error|titlecase}}</p>
+                <button mat-button (click)=onLogin()>Login</button>&nbsp; <a routerLink='/register'>Sign Up</a>
+            </mat-form-field>
         </mat-grid-list>
     </mat-list-item>
 
 
 
-    <mat-list-item *ngIf="token" rows="3">
-        <app-mycart style=" left: 500px;width: 300px; max-height: 100%;"></app-mycart>
+    <mat-list-item cols="1" *ngIf="token">
+        <!-- show existing cart -->
+        <div class="crop">
+            <img src="https://image.shutterstock.com/z/stock-vector-vendors-in-the-supermarket-pixel-art-old-school-computer-graphic-bit-video-game-game-assets-1851423304.jpg"
+                alt="">
+        </div>
+        <div style="height: 200px;">
+            <h1 style="color: deepskyblue;">Notfication:</h1>
+            <h2 *ngIf="totalPrice>0">You have one open Cart
+                <div>Total Price : {{totalPrice|currency:"ILS"}}</div>
+                <!-- <app-mycart style=" left: 500px;width: 300px; max-height: 100%;"></app-mycart> -->
+            </h2>
+            <h2 *ngIf="lastOrder&&totalPrice===0">Last purchase made on - {{lastOrder.orderDate|date}} total price :
+                {{lastOrder.price|currency:"ILS"}}</h2>
+        </div>
     </mat-list-item>
+
 </mat-grid-list>

@@ -1,1 +1,13 @@
-.loginCard {}
+.crop {
+    margin-left: 100px;
+    width: 750px;
+    height: 290px;
+    overflow: hidden;
+}
+
+.crop img {
+    
+    width: 850px;
+    height: 550px;
+    margin: -95px 0 0 -190px;
+}

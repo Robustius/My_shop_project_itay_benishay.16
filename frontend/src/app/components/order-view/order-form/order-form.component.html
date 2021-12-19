@@ -1,8 +1,9 @@
-<h2 style="border-bottom: 3px solid;">Order</h2>
+
+<form *ngIf="cartItems.length>0" name="f" #f="ngForm" (ngSubmit)="validateForm()" >
+  <h2 style="border-bottom: 3px solid;">Order</h2>
 <h3 style="border-bottom: 3px solid;">Shipping Details</h3>
-<form #f="ngForm" (ngSubmit)="validateForm()">
   <p style="width: 600px;" matInput>
-    <mat-form-field class="form-group" appearance="outline">
+    <mat-form-field class="form-group"  appearance="outline">
       <mat-label>City</mat-label>
       <mat-select [(ngModel)]="orderDetails.city" name="city" class="form-control" required #city="ngModel">
         <mat-option>double click for you current signed city</mat-option>
@@ -36,10 +37,10 @@
   <p>
     <mat-form-field appearance="outline">
       <mat-label>Date to deliver?</mat-label>
-      <input matInput (change)="checkDate()" required name="date" #date="ngModel" class="form-control date-input" minlength="3"
-        [(ngModel)]="orderDetails.deliveryDate" matInput type="date" placeholder="Placeholder">
+      <input matInput (change)="checkDate()" required name="date" #date="ngModel" class="form-control date-input"
+        minlength="3" [(ngModel)]="orderDetails.deliveryDate" matInput type="date" placeholder="Placeholder">
       <mat-icon matSuffix>sentiment_satisfied</mat-icon>
-      
+
       <div *ngIf="date.errors?.value">{{date.errors?.value}}</div>
       <div class="form-group" *ngIf="date.errors && (date.dirty || date.touched)">
         <p *ngIf="date.errors?.required">{{date.errors.value|json}}</p>
@@ -50,17 +51,18 @@
   <p>
     <mat-form-field required appearance="outline">
       <mat-label>credit-Card</mat-label>
-      <input matInput type="number" name="creditCard" required minlength="10" (change)="validateCreditCardNumber()"
-        [(ngModel)]='creditCard' class="form-control" placeholder="12345678910...">
+      <input matInput type="number" (change)="validateCreditCardNumber()" required minlength="10" [(ngModel)]="creditCard" name="creditCard"  
+         class="form-control number-input" placeholder="12345678910...">
       <mat-icon matSuffix>sentiment_sad</mat-icon>
       <mat-hint>masterCard,Visa,Express..</mat-hint>
+
+
     </mat-form-field>
-    <mat-hint *ngIf="errors" style="color: rgb(216, 15, 15); font-size: 15px; font-style: oblique;">{{errors}}
+    <mat-hint class="form-group" *ngIf="form?.controls.creditCard?.errors" style="color: rgb(216, 15, 15); font-size: 15px; font-style: oblique;">{{errors}}
     </mat-hint>
-
   </p>
-  <button mat-raised-button type="submit" class="btn btn-primary" (change)="validateCreditCardNumber()"  [disabled]="f.invalid">
-    Submit
+  <button  type="submit" class="form-control btn btn-primary" (change)="validateCreditCardNumber()" [disabled]="f.invalid">
+    Order 
   </button>
+  {{f.valid}},{{isValid}}
 </form>
-

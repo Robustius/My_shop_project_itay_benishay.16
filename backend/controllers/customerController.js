@@ -1,6 +1,6 @@
 import express, { response } from 'express'
-import { getCartById, addProductsTocart, getAllcartProducts, deleteCartProduct, getCustomerDetails } from '../buisness-logic/cart-logic.js';
-import { verifyDate, addToOrders } from "../buisness-logic/order-logic.js"
+import { getCartById, addProductsTocart, getAllcartProducts, deleteCartProduct, getCustomerDetails, findExistingCart } from '../buisness-logic/cart-logic.js';
+import { verifyDate, addToOrders,getLastOrder } from "../buisness-logic/order-logic.js"
 import { verifyToken } from './auth-controller/loginController.js';
 import { verifyLoggedIn } from '../middleware.js';
 import * as fs from 'fs'
@@ -11,12 +11,24 @@ router.post('/cart', verifyLoggedIn, async (req, res) => {
         const token = req.body
         const userDetails = verifyToken(token.token);
         const cart = await getCartById(userDetails);
+        console.log(cart.data, 'what is this');
         return res.status(200).json(cart)
     } catch (error) {
         console.log(error);
     }
 });
+router.get('/pre-cart', verifyLoggedIn, async (req, res) => {
+    try {
+        const token = req.body
+        const userDetails = verifyToken(token.token);
+        const cart = await findExistingCart(userDetails);
+        console.log(cart);
+        res.status(200).send(userDetails)
+    } catch (error) {
 
+    }
+})
+//add products
 router.post('/cart/add', verifyLoggedIn, async (req, res) => {
     try {
 
@@ -83,7 +95,7 @@ router.post('/user/order', verifyLoggedIn, async (req, res) => {
         console.log(req.body, `router Post`);
         const order = req.body;
 
-        console.log(JSON.stringify(order), `router Post`);
+
         const result = await addToOrders(order);
         return res.status(200).json(result)
     } catch (error) {
@@ -91,14 +103,27 @@ router.post('/user/order', verifyLoggedIn, async (req, res) => {
     }
 
 });
-router.get('/user/order/recipt', async (req, res) => {
-    var fs = require('fs');
-fs.writeFile("test.txt", jsonData, function(err) {
-    console.log(jsonData);
-    if (err) {
-        console.log(err);
+router.get('/user/last-order/:token', verifyLoggedIn, async (req, res) => {
+    try {
+        
+        const token=req.params.token
+        console.log(token);
+        const id = verifyToken(token);
+        console.log(id);
+        const lastOrder=await getLastOrder(id);
+        return res.status(200).send(lastOrder)
+    } catch (error) {
+        console.log(error);
     }
 });
+router.get('/user/order/recipt', async (req, res) => {
+    var fs = require('fs');
+    fs.writeFile("test.txt", jsonData, function (err) {
+        console.log(jsonData);
+        if (err) {
+            console.log(err);
+        }
+    });
 });
 
 // fs.writeFile("test.txt", jsonData, function(err) {

@@ -56,7 +56,7 @@ export class OrderComponent implements OnInit {
   public onSearched(searchTerm: string) {
     this.search = searchTerm;
   }
-  goBack() {
+  public goBack() {
     this.cartItems = [];
     this.cartDetails = undefined
     this.location.back()

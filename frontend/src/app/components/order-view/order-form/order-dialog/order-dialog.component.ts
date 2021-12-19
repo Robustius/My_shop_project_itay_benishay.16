@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { CartProducts } from 'src/app/models/CartProducts.model';
-import { CustomerService } from 'src/app/services/customer.service';
+
+
 
 @Component({
   selector: 'app-order-dialog',
@@ -12,7 +14,7 @@ export class OrderDialogComponent implements OnInit {
   cartItems: CartProducts[]
   @Input() recipt = [{}]
   totalPrice = 0
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private cust: CustomerService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.cartItems = this.data.items
@@ -21,7 +23,7 @@ export class OrderDialogComponent implements OnInit {
   }
   calculateTotal() {
     this.totalPrice = 0
-console.log(this.cartItems);
+    console.log(this.cartItems);
 
     this.cartItems.forEach(item => {
 
@@ -59,21 +61,22 @@ console.log(this.cartItems);
   //   a.download = fileName;
   //   a.click();
   // }
-   download() {
-    
+  download() {
+
     var a = document.body.appendChild(
-        document.createElement("a")
+      document.createElement("a")
     );
     a.download = "Recipt.txt";
-   
+
     var list = document.getElementsByClassName("Precipt");
     var b = "";
     for (var i = 0; i < list.length; i++) {
-        console.log(list[i].innerHTML); //second console output
-        b += list[i].innerHTML + "\r\n";
+      console.log(list[i].innerHTML); //second console output
+      b += list[i].innerHTML + "\r\n";
     }
     b = encodeURIComponent(b);
     a.href = "data:text/html," + b;
     a.click();
-}
+  }
+ 
 }

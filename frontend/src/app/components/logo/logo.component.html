@@ -1,17 +1,17 @@
 <mat-grid-list cols="2" rows="2" rowHeight="298px"  class="appLogo">
-  <mat-grid-tile colspan="2" rowspan="1"><h1 class="animated_p">HA-MARKOL </h1></mat-grid-tile>
+  <mat-grid-tile colspan="2" rowspan="1"><h1 class="animated_p"  ><a href="/login" style="color: #fff3e0;"> HA-MARKOL</a> </h1></mat-grid-tile>
   
 <mat-grid-tile colspan="1" rowspan="1" class="header">
 
-<div>
+
   <form class="search" *ngIf="router.url==='/home'" (ngSubmit)="search()" #f="ngForm">
-    <p>
-      <input class='search-input' type="search" [(ngModel)]='productToSearch' name="productToSearch"
-        class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-      <input style="padding: 3px;" type="submit" value="Search"></p>
+    
+    <span><input class='search-input' type="search" [(ngModel)]='productToSearch' name="productToSearch"
+        class="form-control form-control-dark" placeholder="Search..." aria-label="Search"></span>
+      <input  type="submit" value="Search">
       
-  </form>
-</div>
+    </form>
+
 
   <mat-toolbar  class="search-bar" *ngIf="router.url==='/order'">
     <span>Search in recipt...</span>

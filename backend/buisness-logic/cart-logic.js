@@ -1,21 +1,47 @@
 import { error } from "console";
+import { type } from "os";
 import { nextTick } from "process";
 import { executeQueryAsync } from "../data-access-layer/dal.js";
 
+
 export async function getCartById(customerId) {
     try {
-        const oldCart = await executeQueryAsync(`select * from cart where customerId=?`, [customerId])
-        if (oldCart.length > 0) {
-            return oldCart
+        //check if card exists?
+        const oldCart = await executeQueryAsync(`select count(customerId) as c from cart where customerId=?`, [customerId])
+        const numberOfCarts = JSON.parse(JSON.stringify(oldCart[0].c));
+
+        console.log(numberOfCarts, `number`);
+        //if not existing create one
+        if (numberOfCarts === 0) {
+            try {
+                const today = new Date()
+                const newCart = await executeQueryAsync(`insert into cart (id,customerId,startDate) values(null,?,?)`, [customerId, today]);
+                const oldCart = await executeQueryAsync(`select * from cart where customerId=?`, [customerId]);
+                return oldCart
+            } catch (error) {
+                console.log(error);
+            }
+
         } else {
-            const today = new Date()
-            const newCart = await executeQueryAsync(`insert into cart (id,customerId,startDate) values(null,?,?)`, [customerId, today])
-            const oldCart = await executeQueryAsync(`select * from cart where customerId=?`, [customerId]);
-            return oldCart
+            const getoldCart = await executeQueryAsync(`select * from cart where customerId=?`, [customerId])
+            return getoldCart
         }
     } catch (error) {
         console.log(error);
     }
+}
+export async function findExistingCart(customerId) {
+    try {
+        const oldCart = await executeQueryAsync(`select count(customerId) as c from cart where customerId=?`, [customerId])
+        const numberOfCarts = JSON.parse(JSON.stringify(oldCart[0].c));
+        if(numberOfCarts>0){
+            const getoldCart = await executeQueryAsync(`select * from cart where customerId=?`, [customerId])
+             return getoldCart
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 export async function addProductsTocart(product) {
@@ -55,15 +81,15 @@ export async function deleteCartProduct(id) {
 }
 export async function getCustomerDetails(id) {
     try {
-        const cDetails = await executeQueryAsync(`select id,city,street from customers where id=?`,[id])
-    if(!cDetails){
-        return
-    }else{
-        return cDetails
-    }
+        const cDetails = await executeQueryAsync(`select id,city,street from customers where id=?`, [id])
+        if (!cDetails) {
+            return
+        } else {
+            return cDetails
+        }
     } catch (error) {
-        
+
     }
-    
+
 
 }
