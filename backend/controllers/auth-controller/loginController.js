@@ -10,6 +10,7 @@ export const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const user = await isRegistered(req.body);
+      
         if (!user || user.length < 1) return res.status(403).json('incorrect email or password');
         delete user.password;
         if (user) {
@@ -17,7 +18,7 @@ router.post('/', async (req, res) => {
             return res.status(200).send({ token: token, role: user.role });
         } else {
             return res.status(403).json('incorrect email or password')
-        }
+        } 
     }
     catch (error) {
         console.log(error);
@@ -25,6 +26,7 @@ router.post('/', async (req, res) => {
     }
 });
 export function verifyToken(token) {
+  
     const userDetails = jwt.verify(token, 'aosdkasokdaoskdokadsok');
     return userDetails.user.id
 }

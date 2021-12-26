@@ -19,6 +19,7 @@ const routes: Routes = [
 
   {
     path: 'adminview', component: AdminViewComponent,
+   
     children: [
       { path: 'add', component: AddProductComponent }
     ]

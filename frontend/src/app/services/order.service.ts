@@ -20,7 +20,7 @@ export class OrderService {
   }
   async verifyDate(date:string):Promise<any>{
     try {
-      console.log(date);
+   
       return this.http.post<any>('http://localhost:4000/customer/user/verifydate',{date}).toPromise() 
     } catch (error) {
       console.log(error);
@@ -29,7 +29,7 @@ export class OrderService {
   }
   async postOrder(order:Order):Promise<any>{
     try {
-      console.log(order);
+   
       
      return this.http.post<any>('http://localhost:4000/customer/user/order',order).toPromise();
         
@@ -41,7 +41,7 @@ export class OrderService {
   async findLastOrder():Promise<any>{
     const token = this.auth.getToken()
     try {
-      console.log(token);
+     
       
        return this.http.get<any>(`http://localhost:4000/customer/user/last-order/${token.token}`).toPromise()
     } catch (error) {
@@ -50,5 +50,8 @@ export class OrderService {
     }
    
   }
+ async getAllOrders():Promise<any>{
+   return this.http.get("http://localhost:4000/customer/info/all-orders").toPromise()
+ }
   
 }

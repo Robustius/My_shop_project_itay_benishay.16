@@ -16,6 +16,9 @@ export class MessengerService {
  
   
   getMsg() {
+    console.log('im here');
+    
+    
     return this.subject.asObservable()
     
   }

@@ -1,24 +1,29 @@
-<mat-grid-list cols="2" rows="2" rowHeight="298px"  class="appLogo">
-  <mat-grid-tile colspan="2" rowspan="1"><h1 class="animated_p"  ><a href="/login" style="color: #fff3e0;"> HA-MARKOL</a> </h1></mat-grid-tile>
-  
-<mat-grid-tile colspan="1" rowspan="1" class="header">
+<mat-grid-list cols="2" rows="2" rowHeight="298px" class="appLogo">
+  <mat-grid-tile colspan="2" rowspan="1">
+    <h1 class="animated_p"><a href="/login" style="color: #fff3e0;"> HA-MARKOL</a> </h1>
 
+  </mat-grid-tile>
 
-  <form class="search" *ngIf="router.url==='/home'" (ngSubmit)="search()" #f="ngForm">
+  <mat-grid-tile colspan="1" rowspan="1" class="header">
     
-    <span><input class='search-input' type="search" [(ngModel)]='productToSearch' name="productToSearch"
-        class="form-control form-control-dark" placeholder="Search..." aria-label="Search"></span>
-      <input  type="submit" value="Search">
-      
+
+    <form class="search" *ngIf="router.url==='/home'" (ngSubmit)="search()" #f="ngForm">
+    
+      <span><input class='search-input' type="search" [(ngModel)]='productToSearch' name="productToSearch"
+          class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+      </span>
+      <span><button type="submit" >Search</button></span>
     </form>
-
-
-  <mat-toolbar  class="search-bar" *ngIf="router.url==='/order'">
-    <span>Search in recipt...</span>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
-    <mat-form-field class="form-field">
-      <input [(ngModel)]='searchRecipt' matInput (input)="onSearch()" />
-    </mat-form-field>
-  </mat-toolbar>
-</mat-grid-tile>
+    <mat-toolbar class="search-bar" *ngIf="router.url==='/order'">
+      <span>Search in recipt...</span>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
+      <mat-form-field class="form-field">
+        <input [(ngModel)]='searchRecipt' matInput (input)="onSearch()" />
+      </mat-form-field>
+    </mat-toolbar>
+    
+  </mat-grid-tile>
+  <h3 style="position: absolute;bottom: 5px;  margin: 0px;" *ngIf="guestPreset">{{guestPreset}}</h3>
+    <h3 style="position: absolute;bottom: 5px;  margin: 0px;" *ngIf="userInfo.firstName">Hello
+      -{{userInfo.firstName}} - {{userInfo.email}}</h3>
 </mat-grid-list>

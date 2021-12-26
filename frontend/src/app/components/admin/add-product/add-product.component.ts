@@ -1,59 +1,66 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Product } from 'src/app/models/Product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { categoryName } from 'src/app/models/Product.model';
-import { FormBuilder, FormGroup, } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  styleUrls: ['./add-product.component.css'],
 })
 export class AddProductComponent implements OnInit {
-
   @ViewChild('f') form: any;
   @ViewChild('imageControl') imageControl: ElementRef;
-  newProduct: Product = new Product(undefined, undefined, undefined, undefined, undefined,undefined);
+  newProduct: Product = new Product(
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined
+  );
   errors: any;
-  categories: any = Object.keys(categoryName).slice(4)
-
-  imageVisited: boolean = false; 
-  visible: boolean = false;
-  constructor(private productService: ProductsService) { }
+  categories: any = Object.keys(categoryName).slice(4);
+@Input() editIsOpen:boolean
+  imageVisited: boolean = false;
+ visible: boolean = false;
+  constructor(private productService: ProductsService) {}
 
   async ngOnInit() {
-this.visible=false
+    this.visible = false;
   }
   addProduct() {
-    return this.visible = true
+    return (this.visible = !this.visible);
   }
 
   onAdd(): void {
-    console.log(this.form.errors);
-    
-  if(!this.newProduct){
-    return console.log(this.form.errors);
-    
-  }
+    if (!this.newProduct) {
+      return console.log(this.form.errors);
+    }
     const fd = Product.convertToFormData(this.newProduct);
 
+    this.productService
+      .add(fd)
+      .then((value) => {
+        console.log(this.form);
 
-    this.productService.add(fd)
-      .then(
-        (value) => {
-          console.log("Added");
-          console.log(value);
-          this.errors = undefined;
-          this.newProduct = new Product(undefined, undefined, undefined, undefined,undefined,undefined);
-          this.imageVisited = false;
-          this.imageControl.nativeElement.value = "";
-         return this.visible=false
-          // this.form.reset();
-        })
+        this.errors = undefined;
+        this.newProduct = new Product(
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        );
+        this.imageVisited = false;
+        this.imageControl.nativeElement.value = '';
+        return (this.visible = false);
+      })
       .catch((error) => {
-        console.log("Error (Added?)");
         console.log(error);
-        this.errors = error
+        this.errors = error;
       });
   }
 
@@ -64,7 +71,4 @@ this.visible=false
   imageBlur(): void {
     this.imageVisited = true;
   }
-
-
 }
-

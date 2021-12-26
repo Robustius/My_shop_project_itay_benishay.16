@@ -14,7 +14,7 @@ export async function getCartById(customerId) {
         //if not existing create one
         if (numberOfCarts === 0) {
             try {
-                const today = new Date()
+                const today = new Date();
                 const newCart = await executeQueryAsync(`insert into cart (id,customerId,startDate) values(null,?,?)`, [customerId, today]);
                 const oldCart = await executeQueryAsync(`select * from cart where customerId=?`, [customerId]);
                 return oldCart

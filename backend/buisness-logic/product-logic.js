@@ -27,7 +27,7 @@ export async function addProduct(product, image) {
         console.log(product.imageName);
         let imgName = `${product.imageName}.png`;
         const absolutePath = path.join('D:/projects/My_shop_project_itay_benishay.16/backend/images', imgName);
-        await image.mv(absolutePath)   
+        await image.mv(absolutePath)
     } catch (error) {
         console.log(error);
     }
@@ -35,9 +35,57 @@ export async function addProduct(product, image) {
     const categoryId = await executeQueryAsync(
         `select categoryId from category where categoryName='${product.categoryName}'`);
     const result = await executeQueryAsync(
-        `insert into products (id,productName,price,imgId,categoryId) values (null,?,?,?,?)`, [product.productName, product.price, product.imageName, categoryId[0].categoryId]);
+        `insert into products (id,productName,price,imageName,categoryId) values (null,?,?,?,?)`, [product.productName, product.price, product.imageName, categoryId[0].categoryId]);
     return result
 }
+export async function editProdut(product, image) {
+    try {
+
+        if (image == null) {
+            const n = uuidv4();
+            console.log(n, product.id);
+            const categoryId = await executeQueryAsync(
+                `select categoryId from category where categoryName='${product.categoryName}'`);
+
+            const result = await executeQueryAsync(
+                `update products 
+                SET productName=?,price=?,categoryId=? where id=?`, [product.productName, product.price, categoryId[0].categoryId, product.id]);
+            return result
+        } else {
+            try {
+                const categoryId = await executeQueryAsync(
+                    `select categoryId from category where categoryName='${product.categoryName}'`);
+
+                const result = await executeQueryAsync(
+                    `update products 
+                SET productName=?,price=?,imageName=?,categoryId=? where id=?`, [product.productName, product.price, product.imageName, categoryId[0].categoryId, product.id]);
+
+                let imgName = `${product.imageName}.png`;
+                const absolutePath = path.join('D:/projects/My_shop_project_itay_benishay.16/backend/images', imgName);
+                await image.mv(absolutePath)
+
+                return result
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+}
+export async function getImageName(id) {
+    try {
+
+        const result = await executeQueryAsync(`select imageName from products where id=?`, [id]);
+        return result
+    } catch (error) {
+        return error
+    }
+}
+
 export async function getProductsById(categoryId) {
     // const id = await getProductId(category);
     try {
@@ -50,7 +98,7 @@ export async function getProductsById(categoryId) {
         console.log(error);
     }
 }
-async function getProductId(category) {
+export async function getProductId(category) {
     const categoryId = await executeQueryAsync(`select categoryId from category where categoryName='${category}'`);
     return categoryId
 }

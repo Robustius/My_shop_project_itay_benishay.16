@@ -1,17 +1,54 @@
-<mat-nav-list style="max-width: 250px; background-color: rgba(220, 183, 20, 0.329);">
-    <h2>your cart</h2>
+<mat-nav-list style="max-width: 360px; background-color:#fff3e0;">
+    <h2 *ngIf="cartProducts.length<=0&&router.url=='/home'">Your cart</h2>
+    <h2 *ngIf="cartProducts.length<=0&&router.url=='/adminview'"> Edit Panel
+        <app-add-product [editIsOpen]='editOpen'></app-add-product>
+    </h2>
     <mat-divider></mat-divider>
 
-    <ul *ngIf="cartProducts.length<=0" class="list-group">your cart is empty :(...</ul>
-
-    <ul *ngIf="cartProducts.length>0" class="list-group" >
-        <li class="list-group-item" *ngFor="let product of cartProducts" style="background-color: coral;">
-            <app-cart-item [cartProduct]='product' (deleteEvent)="updateCart($event)" ></app-cart-item>
+    <ul *ngIf="cartProducts.length<=0&&router.url=='/home'" class="list-group" style="height: 400px;">your cart is empty
+        :(...</ul>
+    <ul *ngIf="cartProducts.length>0&&router.url=='/home'" class="list-group">
+        <li class="list-group-item" *ngFor="let cartproduct of cartProducts" style="background-color: #54dceb;">
+            <app-cart-item [cartProduct]='cartproduct' (deleteEvent)="updateCart($event)"></app-cart-item>
         </li>
         <li class="list-group-item ">
-            <div> <strong>Total: {{totalPrice|currency:'ILS'}}</strong></div>
-            <div *ngIf="router.url!='/order'"><a mat-icon-button type="button" style="color: rgb(41, 16, 180);"
-                    routerLink="/order">Order</a></div>
+            <div>
+                <strong>Total: {{totalPrice|currency:'ILS'}}</strong>
+            </div>
+            <div *ngIf="router.url=='/home'">
+                <a mat-icon-button type="button" style="color: rgb(0, 41, 117);" routerLink="/order">Order</a>
+            </div>
         </li>
     </ul>
+    <!-- editFOrm -->
+    <form (ngSubmit)="onEdit()" style="font: 23px bold; " #f="ngForm" *ngIf="router.url=='/adminview'&&productToEdit&&editOpen">
+
+        <ul *ngIf="router.url=='/adminview'&&productToEdit" style="width: 250px;">
+            <li>Name:<input matInput type="text" name="productName" [(ngModel)]='productToEdit.productName'> </li>
+            <mat-divider></mat-divider>
+            <li>Category:
+                <select type="select" name="categoryName" [(ngModel)]='productToEdit.categoryName'>
+                    <option>{{productToEdit.categoryName}}</option>
+                    <option *ngFor="let category of categories">{{category}}</option>
+                </select>
+            </li>
+            <mat-divider></mat-divider>
+            <li>
+                <label for="price">Price:</label>
+                <input matInput type="text" name="price" [(ngModel)]='productToEdit.price'>
+            </li>
+            <mat-divider></mat-divider>
+            <li>
+                <label for="imageName">Image name:</label>
+                <input matInput type="text" name="imageName" [(ngModel)]='productToEdit.imageName'>
+            </li>
+            <mat-divider></mat-divider>
+            <li>
+                <label for="image"></label>
+                <input #imageControl type="file" accept="image/*" (change)="saveImage($event)" />
+            </li>
+            <mat-divider></mat-divider>
+        </ul>
+        <button mat-button type="submit" >Edit</button>
+    </form>
 </mat-nav-list>

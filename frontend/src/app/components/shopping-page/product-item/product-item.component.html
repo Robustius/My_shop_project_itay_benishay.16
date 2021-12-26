@@ -1,4 +1,4 @@
-<mat-grid-list cols="4"  rowHeight="1:2" > 
+<mat-grid-list cols="1"  rowHeight="fit"  > 
 
 <ng-template triggers="focus" #popTemplate>
     
@@ -7,16 +7,18 @@
         </mat-form-field>
     
     <span>
+        <button mat-button *ngIf="router.url=='/adminview'"> </button>
         <button mat-button *ngIf="quantity>0" (click)="addToCart()" innerHtml="{{html}}"></button>
     </span>
 </ng-template>
 
-<mat-card-content >
+<mat-card-content *ngIf="router.url!='/adminview'" >
     <button container="body" type="button" class="btn" mat-button [popover]="popTemplate"
         popoverTitle="How many of this you need?" [outsideClick]="true" popover-append-to-body="true" placement="left">
-        <mat-card>
+        <mat-card style="justify-content: right;">
 
-            <img mat-card-sm-image src="http://localhost:4000/products/upload/{{product.imageName}}.png"
+            <img style="width: 100px
+            ;" mat-card-sm-image src="http://localhost:4000/products/upload/{{product.imageName}}.png"
                 alt="{{product.productName}}">
             <mat-card-content class="card-content">
                 <p>{{product.productName|titlecase}}
@@ -29,6 +31,20 @@
     </button>
 </mat-card-content>
 
+<mat-card-content *ngIf="router.url=='/adminview'"  (click)="addToCart()"  >
+    <button  container="body" type="button" class="btn" mat-button>
+        <mat-card>
+
+            <img mat-card-sm-image src="http://localhost:4000/products/upload/{{product.imageName}}.png"
+                alt="{{product.productName}}">
+            <mat-card-content class="card-content">
+                <p>{{product.productName|titlecase}}
+                    {{product.price|currency:'ILS'}}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </button>
+</mat-card-content>
 
 
 </mat-grid-list>

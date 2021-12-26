@@ -5,14 +5,16 @@ export function verifyLoggedIn(request, response, next) {
     return response.status(401).send("You are not logged-in.");
    } // Get token
     const token = request.headers.authorization.split(" ")[1];
+    console.log(token,'TOKEN');
     if (!token) return response.status(401).send("You are not logged-in.");
     // jwt.verify(token, config.jwtKey, err => {
     jwt.verify(token, "aosdkasokdaoskdokadsok", (err, decodedToken) => {
+        console.log(decodedToken.id,'decoded token'); 
         if (err) {
             if (err.message === "jwt expired")
                 return response.status(403).send("Your login session has expired.");
             return response.status(401).send("You are not logged-in.");
-        }
+        } 
         else {
             request.user = decodedToken.user;
             next();

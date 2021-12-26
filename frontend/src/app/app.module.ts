@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { AndHttpInterceptor } from './services/interceptors';
+import { SkippableInterceptor } from './services/interceptors';
 import { RegisterComponent } from './components/register/register.component';
 import { MycartComponent } from './components/shopping-page/mycart/mycart.component';
 import { AdminViewComponent } from './components/admin/admin-view/admin-view.component'
@@ -95,7 +95,7 @@ import { OrderDialogComponent } from './components/order-view/order-form/order-d
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
-    useClass: AndHttpInterceptor,
+    useClass: SkippableInterceptor,
     multi: true
   }],
   

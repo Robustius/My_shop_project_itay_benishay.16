@@ -9,16 +9,18 @@ import { CartModel } from 'src/app/models/Cart.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { sharedStylesheetJitUrl } from '@angular/compiler';
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import { CartProducts } from 'src/app/models/CartProducts.model';
-
-
 
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
-  styleUrls: ['./order-form.component.css']
+  styleUrls: ['./order-form.component.css'],
 })
 // export interface ErrorsModel{
 //   city:string;
@@ -27,70 +29,66 @@ import { CartProducts } from 'src/app/models/CartProducts.model';
 // }
 export class OrderFormComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  @Input()  cartItems: CartProducts[]
+  @Input() cartItems: CartProducts[];
   @Input() customerDetails: Customer;
   @Input() orderDetails: Order;
   cartDetails: CartModel;
   cities: any = Object.keys(Cities).slice(10);
   creditCard: number | string;
-  errors: any
-  isValid: boolean = false
-  isOpendialog = false
-  constructor(private order: OrderService, private cart: CustomerService, public dialog: MatDialog) { }
+  errors: any;
+  isValid: boolean = false;
+  isOpendialog = false;
+  constructor(
+    private order: OrderService,
+    private cart: CustomerService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-
     this.cart.getCart();
   }
 
-
   async validateForm() {
-
-    this.cart.getCart().then(async value => {
-      this.orderDetails.cartId = value[0].id;
-      this.orderDetails.customerId = value[0].customerId;
-      this.orderDetails.orderDate = value[0].startDate
-      if (this.form.valid) {
-        console.log(this.form, `im there`);
-        const posted = await this.postOrderToServer(this.orderDetails);
-        console.log(posted, "orderPosted?");
-        this.openDialog();
-        this.form.reset()
-        this.isOpendialog = true
-      }
-
-
-    }).catch(error =>
-      console.log(error)
-    );
-
-
-
+    this.cart
+      .getCart()
+      .then(async (value) => {
+        this.orderDetails.cartId = value[0].id;
+        this.orderDetails.customerId = value[0].customerId;
+        this.orderDetails.orderDate = value[0].startDate;
+        if (this.form.valid) {
+          const posted = await this.postOrderToServer(this.orderDetails);
+          this.openDialog();
+          this.form.reset();
+          this.isOpendialog = true;
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   async openDialog() {
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      items: this.cartItems
+      items: this.cartItems,
     };
 
-
-    let dialogRef = this.dialog.open(OrderDialogComponent, dialogConfig)
-    dialogRef.afterOpened().subscribe(dialogConfig => {
-      
-    });
-
+    let dialogRef = this.dialog.open(OrderDialogComponent, dialogConfig);
+    dialogRef.afterOpened().subscribe((dialogConfig) => {});
   }
   async checkDate() {
     try {
-      const result = await this.order.verifyDate(this.orderDetails.deliveryDate);
+      const result = await this.order.verifyDate(
+        this.orderDetails.deliveryDate
+      );
 
       if (result[0].c >= 3) {
-        this.isValid = false
+        this.isValid = false;
         this.orderDetails.deliveryDate = undefined;
-        this.errors = "busy day,try another day"
-      } return
+        this.errors = 'busy day,try another day';
+        return 
+      } else {
+        this.errors = '';
+        return 
+      }
     } catch (error) {
       console.log(error);
     }
@@ -98,16 +96,13 @@ export class OrderFormComponent implements OnInit {
 
   async setUserInfo(info: any) {
     if (info === this.customerDetails.street) {
-      this.orderDetails.street = this.customerDetails.street
+      this.orderDetails.street = this.customerDetails.street;
     } else if (info === this.customerDetails.city) {
-      this.orderDetails.city = this.customerDetails.city
+      this.orderDetails.city = this.customerDetails.city;
     }
   }
   validateCreditCardNumber() {
-
-    if (this.creditCard)
-
-      var ccNum = this.creditCard.toString()
+    if (this.creditCard) var ccNum = this.creditCard.toString();
 
     var visaRegEx = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
     var mastercardRegEx = /^(?:5[1-5][0-9]{14})$/;
@@ -118,47 +113,36 @@ export class OrderFormComponent implements OnInit {
     if (visaRegEx.test(ccNum)) {
       isValid = true;
     } else if (mastercardRegEx.test(ccNum)) {
-
       isValid = true;
     } else if (amexpRegEx.test(ccNum)) {
-
       isValid = true;
     } else if (discovRegEx.test(ccNum)) {
-
       isValid = true;
     }
 
     if (isValid === true) {
+      this.isValid = isValid;
+      this.orderDetails.ccv = Number(ccNum);
+      this.errors = 'valid';
 
-      this.isValid = isValid
-      this.orderDetails.ccv = Number(ccNum)
-      this.errors = 'valid'
-      console.log(ccNum);
-      return this.isValid
+      return this.isValid;
     } else {
-      this.isValid = false
-      console.log(ccNum, this.isValid);
-      this.form?.controls.creditCard.setErrors({ ccNum })
-      this.errors = 'Card number is not valid' //if isValid is false return error and exit the validateform with error
-      return this.isValid
+      this.isValid = false;
+
+      this.form?.controls.creditCard.setErrors({ ccNum });
+      this.errors = 'Card number is not valid';
+      return this.isValid;
     }
   }
 
   async postOrderToServer(order: Order) {
     try {
-
       if (this.isValid === true) {
-        const result = await this.order.postOrder(order)
-        console.log(result);
-        if (result) {
+        const result = await this.order.postOrder(order);
 
+        if (result) {
         }
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
-
 }
-
-

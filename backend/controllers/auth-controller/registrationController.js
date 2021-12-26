@@ -8,9 +8,7 @@ router.post('/verify', async (req, res) => {
     try {
 
         const idTaken = await verify(req.body)
-
-        if (idTaken.length >= 1) {
-            
+        if (idTaken.length >= 1) {          
             return res.status(406).send(idTaken);
 
         } else {
@@ -24,7 +22,9 @@ router.post('/verify', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        
         const newUser = await register(req.body)
+     
         return res.status(200).json(newUser);
     } catch (error) {
         console.log(error);

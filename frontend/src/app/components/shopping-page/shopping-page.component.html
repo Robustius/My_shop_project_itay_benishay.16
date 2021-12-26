@@ -1,9 +1,9 @@
 <app-logo class="applogo" (searchResultEvent)="setProducts($event)"></app-logo>
 
-<mat-drawer-container  style="background-color: rgb(87, 223, 112);margin-left: 0px;">
+<mat-drawer-container  style="background-color:#fcf8f1;margin-left: 0px;">
    
-    <mat-drawer mode="side" [opened]="!cartBarOpen" style=" background-color: rgb(87,223,112); min-height: max-content;">
-        <app-mycart  [cartDetails]='cart' [cartProducts]="cartItems"></app-mycart>
+    <mat-drawer mode="side" [opened]="!cartBarOpen" style=" background-color: #f8e7e7; min-height: 400px; width: 350px;">
+        <app-mycart [products]="products"  [cartDetails]='cart' [cartProducts]="cartItems"></app-mycart>
     </mat-drawer>
     
 

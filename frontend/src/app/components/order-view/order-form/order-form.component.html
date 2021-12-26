@@ -45,6 +45,7 @@
       <div class="form-group" *ngIf="date.errors && (date.dirty || date.touched)">
         <p *ngIf="date.errors?.required">{{date.errors.value|json}}</p>
       </div>
+      {{errors}}
     </mat-form-field>
   </p>
   <h3 style="border-bottom: 3px solid;">Payment</h3>

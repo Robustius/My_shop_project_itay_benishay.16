@@ -17,11 +17,12 @@ export class ShoppingPageComponent implements OnInit {
   cartItems: CartProducts[] = []
   errors: any
   cart: CartModel
-
+@Input()  isAdmin:boolean
   constructor(private custServ: CustomerService, private auth: AuthService, private msg: MessengerService) { }
 
   ngOnInit(): void {
     this.errors = undefined
+ 
     
     this.getCart(); 
   }
@@ -35,8 +36,9 @@ export class ShoppingPageComponent implements OnInit {
   async getCart() {
     this.products=[]
     this.cartItems=[]
+   
     this.custServ.getCart().then(value => { 
-      console.log(value);
+   
       
       this.cart = value[0]
       this.custServ.getCartItems(this.cart.id).then(value => {

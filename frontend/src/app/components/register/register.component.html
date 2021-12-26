@@ -37,14 +37,14 @@
   <p>
     email:
     <input type="text" class="form-control" [(ngModel)]="customer.email" name="email" required pattern="[^ @]*@[^ @]*"
-      minlength="8" #email="ngModel" />
+      minlength="8" #email="ngModel"/>
     <span *ngIf="email.errors && (email.dirty || email.touched)">
       <span *ngIf="email.errors.required">Missing email</span>
       <span *ngIf="email.errors.pattern">must contain @</span>
       <span *ngIf="email.errors.minlength">please fill </span>
     </span>
   </p>
-  <pre>{{errors|uppercase}}</pre>
+  <pre *ngIf="errors">{{errors}}</pre>
   <p>
     <input type="submit" value="next" [disabled]="f.invalid||!visible" />
   </p>

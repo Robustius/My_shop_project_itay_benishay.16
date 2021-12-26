@@ -1,6 +1,7 @@
 import express, { response } from 'express'
 import { getCartById, addProductsTocart, getAllcartProducts, deleteCartProduct, getCustomerDetails, findExistingCart } from '../buisness-logic/cart-logic.js';
-import { verifyDate, addToOrders,getLastOrder } from "../buisness-logic/order-logic.js"
+import { verifyDate, addToOrders, getLastOrder,getNumberOfOrders } from "../buisness-logic/order-logic.js"
+import {getUserDetails} from "../buisness-logic/auth-logic.js"
 import { verifyToken } from './auth-controller/loginController.js';
 import { verifyLoggedIn } from '../middleware.js';
 import * as fs from 'fs'
@@ -17,7 +18,7 @@ router.post('/cart', verifyLoggedIn, async (req, res) => {
         console.log(error);
     }
 });
-router.get('/pre-cart', verifyLoggedIn, async (req, res) => {
+router.get('/pre-cart', async (req, res) => {
     try {
         const token = req.body
         const userDetails = verifyToken(token.token);
@@ -29,7 +30,7 @@ router.get('/pre-cart', verifyLoggedIn, async (req, res) => {
     }
 })
 //add products
-router.post('/cart/add', verifyLoggedIn, async (req, res) => {
+router.post('/cart/add', async (req, res) => {
     try {
 
         const cartProducts = req.body
@@ -56,7 +57,7 @@ router.get(`/cart/get/:id`, verifyLoggedIn, async (req, res) => {
 
 });
 
-router.delete(`/cart/delete-product/:productId`, async (req, res) => {
+router.delete(`/cart/delete-product/:productId`, verifyLoggedIn, async (req, res) => {
     try {
         const productId = req.params.productId
         const result = await deleteCartProduct(productId);
@@ -105,27 +106,44 @@ router.post('/user/order', verifyLoggedIn, async (req, res) => {
 });
 router.get('/user/last-order/:token', verifyLoggedIn, async (req, res) => {
     try {
-        
-        const token=req.params.token
-        console.log(token);
+
+        const token = req.params.token
+
         const id = verifyToken(token);
-        console.log(id);
-        const lastOrder=await getLastOrder(id);
+
+        const lastOrder = await getLastOrder(id);
         return res.status(200).send(lastOrder)
     } catch (error) {
         console.log(error);
     }
 });
-router.get('/user/order/recipt', async (req, res) => {
+router.get('/user/order/recipt', verifyLoggedIn, async (req, res) => {
     var fs = require('fs');
     fs.writeFile("test.txt", jsonData, function (err) {
-        console.log(jsonData);
+
         if (err) {
             console.log(err);
         }
     });
 });
+router.get('/info/get/:token', async (req, res) => {
+    try {
+        console.log(req.params.token, 'req PARAMS');
+        const id = verifyToken(req.params.token);
 
+        const userInfo = await getUserDetails(id)
+        console.log(userInfo);
+        return res.send(userInfo)
+
+    } catch (error) {
+        console.log(error);
+    }
+
+});
+router.get('/info/all-orders',async (req,res)=>{
+    const nOrders=await getNumberOfOrders()
+    return res.send(nOrders)
+})
 // fs.writeFile("test.txt", jsonData, function(err) {
 //     if (err) {
 //         console.log(err);

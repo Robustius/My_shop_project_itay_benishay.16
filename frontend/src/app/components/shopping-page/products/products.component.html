@@ -1,6 +1,5 @@
-
-  <mat-grid-list cols="20"  rowHeight="250px" style="left: 10px; ">
-    <mat-grid-tile  colspan="6"  rowspan="1" style="padding: 0px; "   *ngFor="let product of products">
-  <app-product-item    [product]="product"></app-product-item>
-</mat-grid-tile>
+<mat-grid-list cols="2" rowHeight="350px" style="margin-right: 300px; ">
+  <mat-grid-tile colspan="1" rowspan="1"  *ngFor="let product of products">
+    <app-product-item [product]="product" ></app-product-item>
+  </mat-grid-tile>
 </mat-grid-list>

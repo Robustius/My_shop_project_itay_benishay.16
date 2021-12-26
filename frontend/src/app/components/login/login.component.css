@@ -1,12 +1,19 @@
 .crop {
-    margin-left: 100px;
-    width: 750px;
+    margin-top:-65px ;
+    margin-left: 300px;
+    width: 950px;
     height: 290px;
     overflow: hidden;
 }
-
+.loginBody{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+}
 .crop img {
-    
+    mix-blend-mode: color-burn;
+
     width: 850px;
     height: 550px;
     margin: -95px 0 0 -190px;
