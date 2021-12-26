@@ -63,15 +63,15 @@ export class OrderDialogComponent implements OnInit {
   // }
   download() {
 
-    var a = document.body.appendChild(
+    let a = document.body.appendChild(
       document.createElement("a")
     );
     a.download = "Recipt.txt";
 
-    var list = document.getElementsByClassName("Precipt");
-    var b = "";
-    for (var i = 0; i < list.length; i++) {
-      console.log(list[i].innerHTML); //second console output
+    let list = document.getElementsByClassName("Precipt");
+    let b = "";
+    for (let i = 0; i < list.length; i++) {
+     
       b += list[i].innerHTML + "\r\n";
     }
     b = encodeURIComponent(b);

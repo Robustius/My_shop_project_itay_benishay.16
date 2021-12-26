@@ -26,7 +26,7 @@
                 {{totalPrice|currency:'ILS'}} </h2>
             <h2 *ngIf="totalPrice==0&&lastOrder">Last purchase made on - {{lastOrder.orderDate|date}} total price :
                 {{lastOrder.price|currency:"ILS"}}</h2>
-            <tr  style="">
+            <tr  >
                 <button *ngIf="isAdmin " [routerLink]='["/adminview"]'>Welcome Admin<br> start
                 </button>
                 <button mat-button  style="height: 155px; background-color: rgba(255, 242, 242, 0.993); left: 715px;" *ngIf="!isAdmin"
