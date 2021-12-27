@@ -22,39 +22,35 @@ export class SkippableInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-
-
-    if (req.headers.has(interceptorSkipHeader)) {
-     
-      
+    if (req.headers.has(interceptorSkipHeader)&&!localStorage.currentUser) {
       const headers = req.headers.delete(interceptorSkipHeader);
       return next.handle(req.clone({ headers }));
-    }else{
-    
-    const hardcodedTokens = JSON.parse(localStorage?.currentUser)?.token;
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${hardcodedTokens ? hardcodedTokens : null}`,
-      },
-    });
+    } else  {
+      const hardcodedTokens = (JSON.parse(localStorage.getItem('currentUser')||'null').token ?? 'null')
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${hardcodedTokens ? hardcodedTokens : null}`,
+        },
+      });
 
-    return next.handle(req).pipe(
-      retry(1),
-      catchError((error: HttpErrorResponse) => {
-        
-        if (error.status === 403) {
-          localStorage.clear();
-          this.router.navigate(['/login']);
-        }
-        
-        return throwError(error);
-      }),
-      finalize(() => {
-        const profilingMsg = `${req.method} "${req.urlWithParams}"`;
-      })
-    );
+      return next.handle(req).pipe(
+        retry(1),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 403) {
+            localStorage.clear();
+            this.router.navigate(['/login']);
+          }
+
+          return throwError(error);
+        }),
+        finalize(() => {
+          const profilingMsg = `${req.method} "${req.urlWithParams}"`;
+          return console.log(profilingMsg);
+          
+        })
+      );
+    }
   }
-}
 }
 // @Injectable()
 // export class AndHttpInterceptor implements HttpInterceptor {

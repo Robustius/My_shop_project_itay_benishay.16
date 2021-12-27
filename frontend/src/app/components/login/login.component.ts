@@ -38,13 +38,14 @@ export class LoginComponent implements OnInit {
   nProducts: number;
   ngOnInit(): void {
     this.userRole = false;
+    this.token = this.authService.getToken();
+
     this.setOrderCount();
 
-    this.token = this.authService.getToken();
-    if (this.token) {
-      this.userRole = this.token.role;
+    if (this.token === undefined) {
+      return console.log('im here');
     }
-
+    this.userRole = this.token?.role;
     this.userRole == 'admin'
       ? this.navigateAdminPage()
       : (this.setUserPreset(), (this.isAdmin = false));
@@ -66,6 +67,9 @@ export class LoginComponent implements OnInit {
           return (this.errors = value);
         }
         localStorage.setItem('currentUser', JSON.stringify(value));
+        setTimeout(() => {
+          localStorage.clear();
+        }, 300000);
         this.userRole = value.role;
         this.userRole === 'admin'
           ? this.navigateAdminPage()
@@ -81,6 +85,7 @@ export class LoginComponent implements OnInit {
   }
   public async setUserPreset() {
     if (!this.token) {
+      this.errors = 'please Log-in..';
       return;
     }
 

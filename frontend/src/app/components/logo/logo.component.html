@@ -24,6 +24,6 @@
     
   </mat-grid-tile>
   <h3 style="position: absolute;bottom: 5px;  margin: 0px;" *ngIf="guestPreset">{{guestPreset}}</h3>
-    <h3 style="position: absolute;bottom: 5px;  margin: 0px;" *ngIf="userInfo.firstName">Hello
+    <h3 style="position: absolute;bottom: 5px;  margin: 0px;" *ngIf="userInfo?.firstName">Hello
       -{{userInfo.firstName}} - {{userInfo.email}}</h3>
 </mat-grid-list>

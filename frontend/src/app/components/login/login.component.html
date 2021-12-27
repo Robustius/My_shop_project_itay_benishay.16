@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" style="background-color: rgb(36, 196, 211);"ngClass="loginBody">
+<mat-grid-list cols="1" style="background-color: rgb(36, 196, 211);" ngClass="loginBody">
     <mat-grid-tile-header>
         <app-logo>
         </app-logo>
@@ -26,57 +26,62 @@
                 {{totalPrice|currency:'ILS'}} </h2>
             <h2 *ngIf="totalPrice==0&&lastOrder">Last purchase made on - {{lastOrder.orderDate|date}} total price :
                 {{lastOrder.price|currency:"ILS"}}</h2>
-            <tr  >
+            <tr>
                 <button *ngIf="isAdmin " [routerLink]='["/adminview"]'>Welcome Admin<br> start
                 </button>
-                <button mat-button  style="height: 155px; background-color: rgba(255, 242, 242, 0.993); left: 715px;" *ngIf="!isAdmin"
-                    [routerLink]="['/home'] " [disabled]="!token ">
+                <button mat-button style="height: 155px; background-color: rgba(255, 242, 242, 0.993); left: 715px;"
+                    *ngIf="!isAdmin" [routerLink]="['/home'] " [disabled]="!token ">
                     <span style="font-size: 25px;" *ngIf="totalPrice===0">
                         Start Shopping
                     </span>
                     <span *ngIf="totalPrice>0" style="font-size: 25px;">
                         resume existing cart
                     </span>
-                    <p *ngIf="!token" style="font-size: 25px; color: rgb(0, 0, 0);left: 715px; ">Welcome Please sign-in..</p>
+                    <p *ngIf="!token" style="font-size: 25px; color: rgb(0, 0, 0);left: 715px; ">Welcome Please
+                        sign-in..</p>
                 </button>
 
             </tr>
             <tr></tr>
-            <mat-form-field *ngIf="!this.token" >
-                email:
-                <input matInput type="email" [(ngModel)]="email " placeholder="User Name" required
-                    style="height: 25px;"><br>
-                <div>password:
+            <mat-list-item *ngIf="!this.token" style="width: 300px;margin: 22px; ">
+                <label for=""> email:</label>
+                <input matInput type="email" [(ngModel)]="email " placeholder="User Name" required><br>
+                <div style="margin: 15px;">
+                    <mat-label>password</mat-label>
                     <input matInput type="password" [(ngModel)]="password " placeholder=" password" required>
                 </div>
                 <p>{{errors?.error|titlecase}}</p>
-                <button  (click)='onLogin()'>Login</button>&nbsp; <a routerLink='/register'>Sign Up</a>
-            </mat-form-field>
+                <button (click)='onLogin()' style="width: 110px; height: 50px; font-size: 20px;">Login</button>&nbsp; <a
+                    routerLink='/register'>Sign Up</a>
+            </mat-list-item>
         </mat-grid-list>
+
+    </mat-list-item>
+    <mat-list-item>
+        <h2>Number of Orders :{{nOrders}}</h2>
+        <h2>Number of products:{{nProducts}} </h2>
     </mat-list-item>
 
 
-
-    <mat-list-item cols="1" *ngIf="token">
+    <mat-list-item cols="1">
         <!-- show existing cart -->
         <div class="crop">
             <img src="https://image.shutterstock.com/z/stock-vector-vendors-in-the-supermarket-pixel-art-old-school-computer-graphic-bit-video-game-game-assets-1851423304.jpg"
                 alt="">
 
         </div>
-        <h2>Number of Orders :{{nOrders}}</h2>
-        <h2>Number of products:{{nProducts}} </h2>
+
         <div style="height: 200px;">
-            <h1 style="color: rgb(8, 43, 54);">Notfication:</h1>
+            <h1 style="color: rgb(8, 43, 54);">Notfications:</h1>
             <h2 *ngIf="totalPrice>0">You have one open Cart
                 <div>Total Price : {{totalPrice|currency:"ILS"}}</div>
-              
+
             </h2>
             <h2 *ngIf="lastOrder&&totalPrice===0">Last purchase made on - {{lastOrder.orderDate|date}} total price :
                 {{lastOrder.price|currency:"ILS"}}</h2>
         </div>
         <div>
-           
+
         </div>
     </mat-list-item>
 

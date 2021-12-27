@@ -39,7 +39,7 @@ export class LogoComponent implements OnInit {
 
   ngOnInit(): void {
     let token = this.auth.getToken();
-    if (token) {
+    if (token!==undefined) {
       this.auth.getUser().then((value) => {
         if (value.length > 0) {
           this.userInfo.firstName = value[0].firstName;

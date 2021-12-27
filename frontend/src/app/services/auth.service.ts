@@ -20,6 +20,8 @@ export class AuthService {
 
   public getToken(): any {
     const currentUser = localStorage.getItem('currentUser');
+    
+    
     if (currentUser === null) {
       return undefined;
     } else {

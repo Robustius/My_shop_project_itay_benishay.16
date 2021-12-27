@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from '../models/Order.model';
 import { AuthService } from './auth.service';
+import { interceptorSkipHeader } from './interceptors';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,8 @@ export class OrderService {
    
   }
  async getAllOrders():Promise<any>{
-   return this.http.get("http://localhost:4000/customer/info/all-orders").toPromise()
+  const headers = new HttpHeaders().set(interceptorSkipHeader, '');
+   return this.http.get("http://localhost:4000/customer/info/all-orders",{headers}).toPromise()
  }
   
 }

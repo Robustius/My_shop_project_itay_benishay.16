@@ -1,7 +1,7 @@
 <mat-nav-list style="max-width: 360px; background-color:#fff3e0;">
     <h2 *ngIf="cartProducts.length<=0&&router.url=='/home'">Your cart</h2>
     <h2 *ngIf="cartProducts.length<=0&&router.url=='/adminview'"> Edit Panel
-        <app-add-product [editIsOpen]='editOpen'></app-add-product>
+        <app-add-product *ngIf="!editOpen" [editIsOpen]='editOpen'></app-add-product>
     </h2>
     <mat-divider></mat-divider>
 
@@ -21,6 +21,7 @@
         </li>
     </ul>
     <!-- editFOrm -->
+    <div *ngIf="editOpen">
     <form (ngSubmit)="onEdit()" style="font: 23px bold; " #f="ngForm" *ngIf="router.url=='/adminview'&&productToEdit&&editOpen">
 
         <ul *ngIf="router.url=='/adminview'&&productToEdit" style="width: 250px;">
@@ -51,4 +52,5 @@
         </ul>
         <button mat-button type="submit" >Edit</button>
     </form>
+</div>
 </mat-nav-list>
