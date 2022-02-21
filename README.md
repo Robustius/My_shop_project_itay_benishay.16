@@ -6,5 +6,5 @@
 
 ### This project includes pipes,interceptors ,files upload, JWT and more..
 
-**PNG files included.
+**PNG files included
 
