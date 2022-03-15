@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Product } from 'src/app/models/Product.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { categoryName } from 'src/app/models/Product.model';
@@ -22,13 +29,13 @@ export class AddProductComponent implements OnInit {
   );
   errors: any;
   categories: any = Object.keys(categoryName).slice(4);
-@Input() editIsOpen:boolean
+  @Input() editIsOpen: boolean;
   imageVisited: boolean = false;
- visible: boolean = false;
+  visible: boolean = false;
   constructor(private productService: ProductsService) {}
 
   async ngOnInit() {
-    this.visible = false;
+    
   }
   addProduct() {
     return (this.visible = !this.visible);

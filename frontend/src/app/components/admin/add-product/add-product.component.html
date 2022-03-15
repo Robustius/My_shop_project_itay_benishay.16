@@ -1,7 +1,7 @@
 
 
 
-<button (click)="addProduct()"  >ADD</button>
+<button (click)="addProduct()" *ngIf="!editIsOpen||editIsOpen" >ADD</button>
 <form *ngIf="visible" (ngSubmit)="onAdd()" #f="ngForm">
     <h2>New Product</h2>
     <p>
